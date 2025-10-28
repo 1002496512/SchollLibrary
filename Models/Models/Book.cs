@@ -48,5 +48,11 @@ namespace LibraryModels
             get { return this.bookImage; }
             set { this.bookImage = value; } 
         }
+
+        public string BookCopies
+        {
+            get { return this.bookImage; }
+            set { this.bookImage = value; }
+        }
     }
 }

@@ -37,8 +37,6 @@ namespace LibraryWS
             this.dbContext.AddParameter("@AuthorYear", item.AuthorYear);
             this.dbContext.AddParameter("@CountryId", item.CountryId);
             this.dbContext.AddParameter("@AuthorPicture", item.AuthorPicture);
-
-
             return this.dbContext.Insert(sql) > 0;  
         }
 
@@ -66,14 +64,35 @@ namespace LibraryWS
             return authors;
         }
 
-        public Author GetById(int id)
+        public Author GetById(string id)
         {
-            throw new NotImplementedException();
+            string sql = $"SELECT * FROM Authors where AuthorId=@AuthorId";
+            this.dbContext.AddParameter("@AuthorId",id);
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                reader.Read();
+                return factoryModels.AuthorCreator.CreateModel(reader);
+            }
+            return null;
         }
 
         public bool Update(Author item)
         {
-            throw new NotImplementedException();
+            string sql = $@"Update set  Authors
+                              AuthorFirstName=@AuthorFirstName, 
+                              AuthorLastName=@AuthorLastName,
+                              AuthorYear=@AuthorYear,
+                              CountryId=@CountryId,
+                              AuthorPicture=@AuthorPicture
+                              where AuthorId=@AuthorId";
+                        
+            this.dbContext.AddParameter("@AuthorFirstName", item.AuthorFirstName);
+            this.dbContext.AddParameter("@AuthorLastName", item.AuthorLastName);
+            this.dbContext.AddParameter("@AuthorYear", item.AuthorYear);
+            this.dbContext.AddParameter("@CountryId", item.CountryId);
+            this.dbContext.AddParameter("@AuthorPicture", item.AuthorPicture);
+            this.dbContext.AddParameter("@AuthorId", item.AuthorId);
+            return this.dbContext.Insert(sql) > 0;
         }
     }
 }

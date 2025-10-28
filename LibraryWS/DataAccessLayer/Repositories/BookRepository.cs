@@ -1,0 +1,82 @@
+﻿using LibraryModels;
+using System.Data;
+
+namespace LibraryWS
+{
+    public class BookRepository : Repository, IRepository<Book>
+    {
+        public BookRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+        {
+
+        }
+
+        public bool Create(Book item)
+        {
+            string sql = $@"INSERT INTO Books
+                            (
+                              BookName, 
+                              BookDescription, 
+                              BookImage,BookCopies
+                            )
+                           VALUES
+                           (
+                               @BookName,  @BookDescription,
+                               @BookImage, @BookCopies
+                           )";
+            this.dbContext.AddParameter("@BookName", item.BookName);
+            this.dbContext.AddParameter("@BookDescription", item.BookDescription);
+            this.dbContext.AddParameter("@BookImage", item.BookImage);
+            this.dbContext.AddParameter("@BookCopies", item.BookCopies);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public bool Delete(string id)
+        {
+            string sql = $@"delete from Books where BookId=@BookId";
+            this.dbContext.AddParameter("@BookId", id);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public List<Book> GetAll()
+        {
+            List<Book> books = new List<Book>();
+            string sql = "SELECT * FROM Books";
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    books.Add(this.factoryModels.BookCreator.CreateModel(reader));
+                }
+            }
+            return books;
+
+        }
+
+        public Book GetById(string id)
+        {
+            string sql = $"SELECT * FROM Books where Bookid=@Bookid";
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                reader.Read();
+                return this.factoryModels.BookCreator.CreateModel(reader);
+            }
+            return null;
+        }
+
+        public bool Update(Book item)
+        {
+            string sql = $@"Update set Books
+                              BookName=@BookName, 
+                              BookDescription=@BookName, 
+                              BookImage=@BookName,
+                              BookCopies=@BookName
+                              where BookId=@BookId";
+            this.dbContext.AddParameter("@BookName", item.BookName);
+            this.dbContext.AddParameter("@BookDescription", item.BookDescription);
+            this.dbContext.AddParameter("@BookImage", item.BookImage);
+            this.dbContext.AddParameter("@BookCopies", item.BookCopies);
+            this.dbContext.AddParameter("@BookId", item.BookId);
+            return this.dbContext.Insert(sql) > 0;
+        }
+    }
+}
