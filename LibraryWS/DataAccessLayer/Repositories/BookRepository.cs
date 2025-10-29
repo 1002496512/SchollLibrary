@@ -55,6 +55,8 @@ namespace LibraryWS
         public Book GetById(string id)
         {
             string sql = $"SELECT * FROM Books where Bookid=@Bookid";
+            this.dbContext.AddParameter("@Bookid", id);
+
             using (IDataReader reader = this.dbContext.Select(sql))
             {
                 reader.Read();

@@ -41,6 +41,7 @@ namespace LibraryWS.DataAccessLayer.Repositories
         public City GetById(string id)
         {
             string sql = "SELECT * FROM Cities where CityId=@Cityid";
+            this.dbContext.AddParameter("@CityName", id);
             using (IDataReader reader = this.dbContext.Select(sql))
             {
                 reader.Read();
