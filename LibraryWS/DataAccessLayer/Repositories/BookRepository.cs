@@ -39,8 +39,14 @@ namespace LibraryWS
 
         public List<Book> GetAll()
         {
-            List<Book> books = new List<Book>();
+           
             string sql = "SELECT * FROM Books";
+            return GetBookList(sql);
+        }
+
+        private List<Book> GetBookList(string sql)
+        {
+            List<Book> books = new List<Book>();
             using (IDataReader reader = this.dbContext.Select(sql))
             {
                 while (reader.Read())
@@ -49,8 +55,26 @@ namespace LibraryWS
                 }
             }
             return books;
-
         }
+
+
+        public List<Book> GetBooksbyGanre(string ganreId)
+        {
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksGenres.GenreId
+                          FROM Books INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
+                          WHERE BooksGenres.GenreId=@GanreId;";
+            this.dbContext.AddParameter("@GanreId", ganreId);
+            return GetBookList(sql);
+        }
+        public List<Book> GetBooksbyAuthor(string AuthorId)
+        {
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksAuthors.AuthorId
+                           FROM Books INNER JOIN BooksAuthors ON Books.BookId = BooksAuthors.BookId
+                           WHERE (((BooksAuthors.AuthorId)=@AuthorId))";
+            this.dbContext.AddParameter("@AuthorId", AuthorId);
+            return GetBookList(sql);
+        }
+
 
         public Book GetById(string id)
         {

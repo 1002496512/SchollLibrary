@@ -97,5 +97,16 @@ namespace LibraryWS
 
             return this.dbContext.Insert(sql) > 0;
         }
+
+        public string Login(string nickname, string password)
+        {
+            string sql = $@"SELECT ReaderId FROM Readers
+                            where ReaderNickName=@ReaderNickName AND
+                            ReaderPassword=@ReaderPassword";
+            this.dbContext.AddParameter("@ReaderNickName", nickname);
+            this.dbContext.AddParameter("@ReaderPassword", password);
+            
+            return this.dbContext.GetValue(sql).ToString();
+        }
     }
 }
