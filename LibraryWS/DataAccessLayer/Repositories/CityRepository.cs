@@ -1,7 +1,7 @@
 ﻿using LibraryModels;
 using System.Data;
 
-namespace LibraryWS.DataAccessLayer.Repositories
+namespace LibraryWS
 {
     public class CityRepository : Repository, IRepository<City>
     {

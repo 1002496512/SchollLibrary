@@ -1,10 +1,10 @@
 ﻿using LibraryModels;
-using Models;
+
 using System.Data;
 
-namespace LibraryWS.DataAccessLayer.Repositories
+namespace LibraryWS
 {
-    public class GanreRepository : Repository, IRepository<Country>
+    public class GanreRepository : Repository, IRepository<Ganre>
     {
         public GanreRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
         {

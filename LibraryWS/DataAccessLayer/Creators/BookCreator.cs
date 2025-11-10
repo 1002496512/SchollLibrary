@@ -9,7 +9,7 @@ namespace LibraryWS
             return new Book()
             {
                 BookDescription = Convert.ToString(reader["BookDescription"]),
-                BookId = Convert.ToString(reader["BokId"]),
+                BookId = Convert.ToString(reader["BookId"]),
                 BookImage = Convert.ToString(reader["BookImage"]),
                 BookName = Convert.ToString(reader["BookImage"])
             };
