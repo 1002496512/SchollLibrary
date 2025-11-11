@@ -104,5 +104,18 @@ namespace LibraryWS
             this.dbContext.AddParameter("@BookId", item.BookId);
             return this.dbContext.Insert(sql) > 0;
         }
+
+        public List<Book> GetBooksbyPage(string page)
+        {
+            int booksPerPage = 10;
+            int pageNumber = int.Parse(page);
+            int offset = (pageNumber - 1) * booksPerPage;
+            string sql = $@"SELECT * FROM Books 
+                           ORDER BY BookId 
+                           OFFSET {offset} ROWS 
+                           FETCH NEXT {booksPerPage} ROWS ONLY;";   
+
+
+        }
     }
 }

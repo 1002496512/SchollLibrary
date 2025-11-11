@@ -18,16 +18,25 @@ namespace LibraryWS.Controllers
 
 
         [HttpGet]
-        public CatalogViewModel GetCatalog()
+        public CatalogViewModel GetCatalog(string authorId=null, string ganreId=null, string page=null)
         {
-           
             CatalogViewModel catalogViewModel = new CatalogViewModel();
             //open connection
             try
             {
                 this.repositoryUOW.ConnectDb();
-                catalogViewModel.Books = this.repositoryUOW.BookRepository.GetAll();
-                catalogViewModel.Authors = this.repositoryUOW.AuthorRepository.GetAll();
+               
+                if(authorId == null && ganreId == null && page == null)
+                   catalogViewModel.Authors = this.repositoryUOW.AuthorRepository.GetAll();
+                else if(authorId != null && ganreId == null && page == null)
+                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
+                else if (authorId == null && ganreId != null && page == null)
+                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
+                else if (authorId == null && ganreId == null && page != null)
+                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyPage(page);
+
+
+                catalogViewModel.Authors = this.repositoryUOW.AuthorRepository.GetAll();    
                 catalogViewModel.Ganres = this.repositoryUOW.GanreRepository.GetAll();
                 return catalogViewModel;
             }

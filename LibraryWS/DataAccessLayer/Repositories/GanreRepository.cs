@@ -28,7 +28,7 @@ namespace LibraryWS
         public List<Ganre> GetAll()
         {
             List<Ganre> ganres = new List<Ganre>();
-            string sql = "SELECT * FROM Ganres";
+            string sql = "SELECT * FROM Genres";
             using (IDataReader reader = this.dbContext.Select(sql))
             {
                 while (reader.Read())

@@ -57,17 +57,13 @@ namespace Tests
 
         }
 
-        static void Hashing3()
+        static void  Hashing3()
         {
-            for(int i = 0; i < 5; i++)
-            {
-
-                string salt = "kfgk  kfjgk";//CreateSalt(16);
+            string salt = CreateSalt(8);
             string password = "password123";
             string combined = salt + password;
-
-                using (SHA256 sha256 = SHA256.Create())
-                {
+            using (SHA256 sha256 = SHA256.Create())
+            {
                     byte[] bytes = Encoding.UTF8.GetBytes(combined);
                     byte[] hash = sha256.ComputeHash(bytes);
                     //sha256.
@@ -78,11 +74,11 @@ namespace Tests
 
                     Console.WriteLine("Hash: " + sb.ToString());
                     Console.WriteLine("Salt: " + salt);
-                }
             }
+            
 
         }
-        public static string CreateSalt(int size = 16) // Default salt size in bytes
+        public static string CreateSalt(int size = 6) // Default salt size in bytes
         {
             using (var rng = RandomNumberGenerator.Create())
             {

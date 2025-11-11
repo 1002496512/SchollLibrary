@@ -9,8 +9,8 @@ namespace LibraryWS
         {
             return new Ganre()
             {
-                 GanreId= Convert.ToString(reader["GanreId"]),
-                GanreName=Convert.ToString(reader["GanreName"])
+                 GanreId= Convert.ToString(reader["GenreId"]),
+                GanreName=Convert.ToString(reader["GenreName"])
             };
         }
 
