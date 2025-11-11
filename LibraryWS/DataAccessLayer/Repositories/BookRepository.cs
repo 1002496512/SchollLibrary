@@ -108,14 +108,15 @@ namespace LibraryWS
         public List<Book> GetBooksbyPage(string page)
         {
             int booksPerPage = 10;
-            int pageNumber = int.Parse(page);
-            int offset = (pageNumber - 1) * booksPerPage;
-            string sql = $@"SELECT * FROM Books 
-                           ORDER BY BookId 
-                           OFFSET {offset} ROWS 
-                           FETCH NEXT {booksPerPage} ROWS ONLY;";   
-
-
+            string sql = $@"SELECT TOP {booksPerPage}  *  
+                            FROM Books WHERE BookId NOT IN
+                            (
+                                SELECT TOP {booksPerPage * int.Parse(page) - 1} BookId 
+                                FROM Books
+                                ORDER BY BookId ASC
+                            )
+                            ORDER BY BookId ASC";
+            return GetBookList(sql);
         }
     }
 }
