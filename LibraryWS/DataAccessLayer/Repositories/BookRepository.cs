@@ -40,7 +40,7 @@ namespace LibraryWS
         public List<Book> GetAll()
         {
            
-            string sql = "SELECT * FROM Books";
+            string sql = "SELECT * FROM Books ORDER BY BookId ASC";
             return GetBookList(sql);
         }
 
