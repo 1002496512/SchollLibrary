@@ -88,7 +88,6 @@ namespace LibraryWS
                 reader.Read();
                 return this.factoryModels.BookCreator.CreateModel(reader);
             }
-            return null;
         }
 
         public bool Update(Book item)
@@ -110,7 +109,7 @@ namespace LibraryWS
         {
             string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksGenres.TypeBookId
                            FROM Books INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
-                           WHERE (((BooksGenres.TypeBookId)=@GanreId))"; ;
+                           WHERE  BooksGenres.TypeBookId=@GanreId "; ;
             this.dbContext.AddParameter("@GanreId", ganreId);
 
             List<Book> books = new List<Book>();
