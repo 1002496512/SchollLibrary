@@ -15,6 +15,7 @@ namespace LibraryModels
         public string AuthorId { get; set; }
         public string GanreId { get; set; }
         public string Page { get; set; }
+        public int PagePerPage { get; set; }
 
     }
 }

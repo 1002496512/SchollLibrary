@@ -1,14 +1,18 @@
 ﻿namespace LibraryWS
 {
-    public abstract class Repository 
+    public class Repository
     {
-        protected OledbContext dbContext;
-        protected FactoryModels factoryModels;
+       protected OledbContext dbContext;
+       protected FactoryModels factoryModels;
 
-        public Repository(OledbContext dbContext, FactoryModels factoryModels)
+        public Repository(OledbContext dbContext,
+                          FactoryModels FactoryModels)
         {
-            this.dbContext = dbContext;
+            this.dbContext =  dbContext;
             this.factoryModels = factoryModels;
-        }   
+        }
+
+        
+
     }
 }

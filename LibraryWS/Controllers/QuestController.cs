@@ -9,35 +9,35 @@ namespace LibraryWS.Controllers
     public class QuestController : ControllerBase
     {
 
-        RepositoryUOW repositoryUOW;
+        RepositoryFactory repositoryFactory;
         public QuestController()
         {
-            this.repositoryUOW = new RepositoryUOW();
+            this.repositoryFactory = new RepositoryFactory();
 
         }
 
 
         [HttpGet]
-        public CatalogViewModel GetCatalog(string authorId=null, string ganreId=null, string page=null)
+        public CatalogViewModel GetCatalog(string authorId=null, string ganreId=null, int page=0)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
             //open connection
             try
             {
-                this.repositoryUOW.ConnectDb();
+                this.repositoryFactory.ConnectDb();
                
-                if(authorId == null && ganreId == null && page == null)
-                   catalogViewModel.Authors = this.repositoryUOW.AuthorRepository.GetAll();
-                else if(authorId != null && ganreId == null && page == null)
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
-                else if (authorId == null && ganreId != null && page == null)
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
-                else if (authorId == null && ganreId == null && page != null)
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyPage(page);
+                if(authorId == null && ganreId == null && page == 0)
+                   catalogViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAll();
+                else if(authorId != null && ganreId == null && page == 0)
+                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
+                else if (authorId == null && ganreId != null && page == 0)
+                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
+                else if (authorId == null && ganreId == null && page != 0)
+                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksByPage(page);
 
 
-                catalogViewModel.Authors = this.repositoryUOW.AuthorRepository.GetAll();    
-                catalogViewModel.Ganres = this.repositoryUOW.GanreRepository.GetAll();
+                catalogViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAll();    
+                catalogViewModel.Ganres = this.repositoryFactory.GanreRepository.GetAll();
                 return catalogViewModel;
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace LibraryWS.Controllers
             }
             finally
             {
-                this.repositoryUOW.DisconnectDb();
+                this.repositoryFactory.DisconnectDb();
             }
 
 

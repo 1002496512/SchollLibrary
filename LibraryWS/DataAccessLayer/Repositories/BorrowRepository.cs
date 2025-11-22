@@ -5,10 +5,12 @@ namespace LibraryWS
 {
     public class BorrowRepository : Repository, IRepository<Borrow>
     {
-        public BorrowRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+        public BorrowRepository(OledbContext OledbContext,
+                              FactoryModels FactoryModels) :
+                              base(OledbContext, FactoryModels)
         {
-        }
 
+        }
         public bool Create(Borrow item)
         {
             string sql = $@"INSERT INTO Borrows
@@ -76,6 +78,29 @@ namespace LibraryWS
             this.dbContext.AddParameter("@BookId", item.BookId);
             this.dbContext.AddParameter("@BorrowId", item.BorrowId);
             return this.dbContext.Insert(sql) > 0;
+        }
+
+        public List<Borrow> GetReaderBorrows(string readerId)
+        {
+            List<Borrow> borrows = new List<Borrow>();
+            string sql = @"SELECT
+                            Borrows.BorrowId,
+                            Borrows.ReaderId,
+                            Borrows.BorrowDate,
+                            Borrows.BorrowStatus,
+                            Borrows.BookId
+                        FROM
+                            Borrows
+                        WHERE Borrows.ReaderId  = @ReaderId)
+                              AND Borrows.BorrowStatus=2);";
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    borrows.Add(this.factoryModels.BorrowCreator.CreateModel(reader));
+                }
+            }
+            return borrows;
         }
     }
 }

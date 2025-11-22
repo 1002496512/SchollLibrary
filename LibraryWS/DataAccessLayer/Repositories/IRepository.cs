@@ -2,14 +2,13 @@
 {
     public interface IRepository<T>
     {
+        bool Create(T model);
+        bool Update(T model);
+        bool Delete(string id);
+
         List<T> GetAll();
 
         T GetById(string id);
-
-        bool Create(T item);
-        bool Update(T item);
-        bool Delete(string id);
-
 
     }
 }

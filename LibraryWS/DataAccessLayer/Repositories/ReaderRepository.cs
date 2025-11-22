@@ -1,16 +1,17 @@
 ﻿using LibraryModels;
 using System.Data;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace LibraryWS
 {
     public class ReaderRepository : Repository, IRepository<Reader>
     {
-        public ReaderRepository(OledbContext dbContext,
-                FactoryModels factoryModels) :
-                base(dbContext, factoryModels)
+        public ReaderRepository(OledbContext OledbContext,
+                              FactoryModels FactoryModels) :
+                              base(OledbContext, FactoryModels)
         {
-        }
 
+        }
         public bool Create(Reader item)
         {
             string sql = $@"INSERT INTO Readers
@@ -98,15 +99,20 @@ namespace LibraryWS
             return this.dbContext.Insert(sql) > 0;
         }
 
-        public string Login(string nickname, string password)
+        public string Login(string nickName, string password)
         {
-            string sql = $@"SELECT ReaderId FROM Readers
-                            where ReaderNickName=@ReaderNickName AND
-                            ReaderPassword=@ReaderPassword";
-            this.dbContext.AddParameter("@ReaderNickName", nickname);
+            string sql = @"Select ReaderId from Readers 
+                           where ReaderNickName=@ReaderNickName
+                           and ReaderPassword=@ReaderPassword";
+            this.dbContext.AddParameter("@ReaderNickName", nickName);
             this.dbContext.AddParameter("@ReaderPassword", password);
-            
-            return this.dbContext.GetValue(sql).ToString();
+           using(IDataReader reader = this.dbContext.Select(sql))
+            {
+                if (reader.Read() == true)
+                    return reader["ReaderId"].ToString();
+                return null;
+            }
+
         }
     }
 }

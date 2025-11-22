@@ -5,8 +5,11 @@ namespace LibraryWS
 {
     public class CountryRepository : Repository, IRepository<Country>
     {
-        public CountryRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+        public CountryRepository(OledbContext OledbContext,
+                               FactoryModels FactoryModels) :
+                               base(OledbContext, FactoryModels)
         {
+
         }
 
         public bool Create(Country item)

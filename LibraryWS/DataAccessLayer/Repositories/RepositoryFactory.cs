@@ -1,6 +1,7 @@
-﻿namespace LibraryWS
+﻿
+namespace LibraryWS
 {
-    public class RepositoryUOW
+    public class RepositoryFactory
     {
         AuthorRepository authorRepository;
         BookRepository bookRepository;
@@ -12,7 +13,7 @@
         OledbContext oledbContext;
         FactoryModels factoryModels;
 
-        public RepositoryUOW()
+        public RepositoryFactory()
         {
             this.oledbContext = new OledbContext(); ;
             this.factoryModels = new FactoryModels(); ;
@@ -106,5 +107,24 @@
             this.oledbContext.CloseConnection();
         }
 
+        internal void BeginTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal object GetLastInsertedId()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void RollBack()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

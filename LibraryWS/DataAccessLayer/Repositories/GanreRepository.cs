@@ -1,15 +1,16 @@
 ﻿using LibraryModels;
-
 using System.Data;
 
 namespace LibraryWS
 {
     public class GanreRepository : Repository, IRepository<Ganre>
     {
-        public GanreRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+        public GanreRepository(OledbContext OledbContext,
+                             FactoryModels FactoryModels) :
+                             base(OledbContext, FactoryModels)
         {
-        }
 
+        }
         public bool Create(Ganre item)
         {
             string sql = $@"INSERT INTO Ganres

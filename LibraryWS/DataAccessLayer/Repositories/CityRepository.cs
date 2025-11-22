@@ -5,10 +5,12 @@ namespace LibraryWS
 {
     public class CityRepository : Repository, IRepository<City>
     {
-        public CityRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+        public CityRepository(OledbContext OledbContext,
+                               FactoryModels FactoryModels) :
+                               base(OledbContext, FactoryModels)
         {
-        }
 
+        }
         public bool Create(City item)
         {
             string sql = $@"INSERT INTO Cities

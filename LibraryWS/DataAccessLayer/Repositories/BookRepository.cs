@@ -1,32 +1,34 @@
 ﻿using LibraryModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 
 namespace LibraryWS
 {
     public class BookRepository : Repository, IRepository<Book>
     {
-        public BookRepository(OledbContext dbContext, FactoryModels factoryModels) : base(dbContext, factoryModels)
+       public BookRepository(OledbContext OledbContext,
+                             FactoryModels FactoryModels):
+                             base(OledbContext, FactoryModels)
         {
 
         }
 
-        public bool Create(Book item)
+        public bool Create(Book model)
         {
             string sql = $@"INSERT INTO Books
                             (
                               BookName, 
                               BookDescription, 
-                              BookImage,BookCopies
+                              BookImage,
                             )
                            VALUES
                            (
                                @BookName,  @BookDescription,
-                               @BookImage, @BookCopies
+                               @BookImage
                            )";
-            this.dbContext.AddParameter("@BookName", item.BookName);
-            this.dbContext.AddParameter("@BookDescription", item.BookDescription);
-            this.dbContext.AddParameter("@BookImage", item.BookImage);
-            this.dbContext.AddParameter("@BookCopies", item.BookCopies);
+            this.dbContext.AddParameter("@BookName", model.BookName);
+            this.dbContext.AddParameter("@BookDescription", model.BookDescription);
+            this.dbContext.AddParameter("@BookImage", model.BookImage);
             return this.dbContext.Insert(sql) > 0;
         }
 
@@ -40,7 +42,7 @@ namespace LibraryWS
         public List<Book> GetAll()
         {
            
-            string sql = "SELECT * FROM Books ORDER BY BookId ASC";
+            string sql = "SELECT * FROM Books";
             return GetBookList(sql);
         }
 
@@ -100,23 +102,115 @@ namespace LibraryWS
             this.dbContext.AddParameter("@BookName", item.BookName);
             this.dbContext.AddParameter("@BookDescription", item.BookDescription);
             this.dbContext.AddParameter("@BookImage", item.BookImage);
-            this.dbContext.AddParameter("@BookCopies", item.BookCopies);
             this.dbContext.AddParameter("@BookId", item.BookId);
             return this.dbContext.Insert(sql) > 0;
         }
 
-        public List<Book> GetBooksbyPage(string page)
+        public List<Book> GetBooksByGanre(string ganreId)
         {
-            int booksPerPage = 10;
-            string sql = $@"SELECT TOP {booksPerPage}  *  
-                            FROM Books WHERE BookId NOT IN
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksGenres.TypeBookId
+                           FROM Books INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
+                           WHERE (((BooksGenres.TypeBookId)=@GanreId))"; ;
+            this.dbContext.AddParameter("@GanreId", ganreId);
+
+            List<Book> books = new List<Book>();
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    books.Add(this.factoryModels.BookCreator.CreateModel(reader));
+                }
+            }
+            return books;
+        }
+        public List<Book> GetBooksByAuthor(string authorId)
+        {
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksAuthors.AuthorId
+                          FROM Books INNER JOIN BooksAuthors ON Books.BookId = BooksAuthors.BookId
+                          WHERE (((BooksAuthors.AuthorId)=@AuthorId));";
+            this.dbContext.AddParameter("@AuthorId", authorId);
+
+            List<Book> books = new List<Book>();
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    books.Add(this.factoryModels.BookCreator.CreateModel(reader));
+                }
+            }
+            return books;
+        }
+
+        public List<Book> GetBooksByPage(int page)
+        {
+            int booksperPage = 10;
+            List<Book> books = this.GetAll();
+            return books.Skip(booksperPage * (page-1)).Take(booksperPage).ToList();
+
+
+        }
+
+        public bool AddBookAuthor(string bookId, string authorid)
+        {
+            string sql = $@"INSERT INTO BooksAuthors
                             (
-                                SELECT TOP {booksPerPage * int.Parse(page) - 1} BookId 
-                                FROM Books
-                                ORDER BY BookId ASC
+                              BookId, 
+                              AuthorId, 
                             )
-                            ORDER BY BookId ASC";
-            return GetBookList(sql);
+                           VALUES
+                           (
+                               @BookId,  @AuthorId,
+                           )";
+            this.dbContext.AddParameter("@BookId", bookId);
+            this.dbContext.AddParameter("@AuthorId", authorid);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public bool AdBookGanre(string bookId, string ganreId)
+        {
+          string sql = $@"INSERT INTO BooksGenres
+                            (
+                              BookId, 
+                              GanreId, 
+                            )
+                           VALUES
+                           (
+                               @BookId,  @GanreId,
+                           )";
+            this.dbContext.AddParameter("@BookId", bookId);
+            this.dbContext.AddParameter("@GanreId", ganreId);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public bool DeleteBookAuthor(string bookId, string authorid)
+        {
+            string sql = $@"delete from BooksAuthors where BookId=@BookId And AuthorId=@AuthorId";
+            this.dbContext.AddParameter("@BookId", bookId);
+            this.dbContext.AddParameter("@AuthorId", authorid);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        internal bool DeleteBookGanre(string bookId, string ganreId)
+        {
+            string sql = $@"delete from BooksGenres where BookId=@BookId And GanreId=@GanreId";
+            this.dbContext.AddParameter("@BookId", bookId);
+            this.dbContext.AddParameter("@GanreId", ganreId);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public bool GeleteBookAuthors(string bookId)
+        {
+            string sql = $@"delete from BooksAuthors where BookId=@BookId";
+            this.dbContext.AddParameter("@BookId", bookId);
+            return this.dbContext.Insert(sql) > 0;
+        }
+
+        public bool DeleteBookGanres(string bookId)
+        {
+            string sql = $@"delete from BooksGenres where BookId=@BookId";
+            this.dbContext.AddParameter("@BookId", bookId);
+            return this.dbContext.Insert(sql) > 0;
         }
     }
-}
+    }
+
