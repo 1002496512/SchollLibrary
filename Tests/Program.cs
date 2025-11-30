@@ -3,16 +3,77 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
+using System.Net.Http.Headers;
+using System.Text.Json;
+ 
+
 namespace Tests
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            Hashing3();
+
+            List<Currency> list = CurrencyListTest().Result;
+            int count = 1;
+            foreach (var currency in list)
+            {
+                Console.WriteLine($"{count}. {currency.symbol} - {currency.name}");
+                count++;
+            }
+            Console.Write("Select Carrency number from >> ");
+            int from = int.Parse(Console.ReadLine());
+            Console.Write("Select Carrency number to >> ");
+            int to = int.Parse(Console.ReadLine());
+            Console.Write("Inter sum >> ");
+            int sum = int.Parse(Console.ReadLine());
+            ConvertResult result2 = GetResult(list[from - 1].symbol, list[to - 1].symbol, sum).Result;
+            Console.WriteLine($"{result2.result.amountToConvert} {result2.result.from} = {Math.Round(result2.result.convertedAmount)} {result2.result.to}");
+            Console.ReadLine(); 
+
+        }
+        static async Task<ConvertResult> GetResult(string from, string to, double amount)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://currency-converter18.p.rapidapi.com/api/v1/convert?from={from}&to={to}&amount={amount}"),
+                Headers =
+    {
+        { "x-rapidapi-key", "f941083369msh224539dcf0b2026p1db183jsna6addf01cf75" },
+        { "x-rapidapi-host", "currency-converter18.p.rapidapi.com" },
+    },
+            }; 
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string? body = await response.Content.ReadAsStringAsync();
+                ConvertResult r = JsonSerializer.Deserialize<ConvertResult>(body); 
+                return r;
+            }
         }
 
+        static async Task<List<Currency>> CurrencyListTest()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://currency-converter18.p.rapidapi.com/api/v1/supportedCurrencies"),
+                Headers =
+    {
+        { "x-rapidapi-key", "f941083369msh224539dcf0b2026p1db183jsna6addf01cf75" },
+        { "x-rapidapi-host", "currency-converter18.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<List<Currency>>(body);
+            }
+        }
         static void ModelValidation()
         {
             Author author = new Author();   

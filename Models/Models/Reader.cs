@@ -19,6 +19,8 @@ namespace LibraryModels
         string readerNickName;
         string readerPassword;
 
+        public string Salt{get; set; }
+
         [Required(ErrorMessage = "You must enter Id")]
         [StringLength(9, MinimumLength = 9, ErrorMessage = "reader Id cannot must be 9 digits")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Id must be numeric")]    
