@@ -1,5 +1,6 @@
 ﻿using LibraryModels;
 using System.Data;
+using System.Data.SqlTypes;
 using System.IO.Pipelines;
 using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography;
@@ -39,18 +40,26 @@ namespace LibraryWS
             this.dbContext.AddParameter("@ReaderTelephone", item.ReaderTelephone);
             this.dbContext.AddParameter("@ReaderImage", item.ReaderImage);
             this.dbContext.AddParameter("@ReaderNickName", item.ReaderNickName);
-            this.dbContext.AddParameter("@ReaderPassword", item.ReaderPassword);
             string salt = GenerateSalt();
+            this.dbContext.AddParameter("@ReaderPassword", CalculateHash(item.ReaderPassword, salt));
             this.dbContext.AddParameter("@ReaderSalt",salt );  
-
-
             return this.dbContext.Insert(sql) > 0;
         }
 
+        private string CalculateHash(string password, string salt)
+        {
+            string s = password + salt;
+            byte[] pass = System.Text.Encoding.UTF8.GetBytes(s);    
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(pass);
+                return Convert.ToBase64String(bytes);
+            }
+        }
         private string GenerateSalt()
         {
             byte[] saltBytes = new byte[16];
-           RandomNumberGenerator.Fill(saltBytes);
+            RandomNumberGenerator.Fill(saltBytes);
             return Convert.ToBase64String(saltBytes);
         }
 
@@ -113,17 +122,26 @@ namespace LibraryWS
 
         public string Login(string nickName, string password)
         {
-            string sql = @"Select ReaderId from Readers 
-                           where ReaderNickName=@ReaderNickName
-                           and ReaderPassword=@ReaderPassword";
+            string sql = @"Select ReaderId,ReaderPassword,ReaderSalt from Readers 
+                           where ReaderNickName=@ReaderNickName";
             this.dbContext.AddParameter("@ReaderNickName", nickName);
-            this.dbContext.AddParameter("@ReaderPassword", password);
+            string hash = string.Empty;
+            string salt = string.Empty;
+            string readerId = string.Empty; 
            using(IDataReader reader = this.dbContext.Select(sql))
             {
                 if (reader.Read() == true)
-                    return reader["ReaderId"].ToString();
+                {
+                    salt = reader["ReaderSalt"].ToString();
+                    hash = reader["ReaderPassword"].ToString();
+                    readerId = reader["ReaderId"].ToString();
+                }
+                if (hash == CalculateHash(password, salt))
+                    return readerId;
                 return null;
+
             }
+
 
         }
     }

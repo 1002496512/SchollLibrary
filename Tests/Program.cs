@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using WebApiClient;
  
 
 namespace Tests
@@ -13,7 +14,49 @@ namespace Tests
     {
         static void Main(string[] args)
         {
+            Console.ReadLine();
+            TestWebClient();
+            Console.ReadLine(); 
 
+        }
+
+        static void TestWebClient()
+        {
+           WebClient<Book> webClient = new WebClient<Book>();
+            webClient.Scheme = "http";
+            webClient.Host = "localhost";
+            webClient.Port = 5185;
+            webClient.Path = "api/Guest/GetBook";
+            webClient.AddParameter("bookId", "45");
+            Book book = webClient.Get();
+            Console.WriteLine($"{book.BookName} /r/n {book.BookDescription} ");
+        }   
+        static string CalculateHash(string password, string salt)
+        {
+            string s = password + salt;
+            byte[] pass = System.Text.Encoding.UTF8.GetBytes(s);
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(pass);
+                return Convert.ToBase64String(bytes);
+            }
+        }
+        static string GenerateSalt()
+        {
+            byte[] saltBytes = new byte[16];
+            RandomNumberGenerator.Fill(saltBytes);
+            return Convert.ToBase64String(saltBytes);
+        }
+        static void ViewHash()
+        {
+            string pass = "212730030";
+            string salt = GenerateSalt();
+            Console.WriteLine(salt);
+            string hash = CalculateHash(pass, salt);
+            Console.WriteLine(hash);
+        }
+        static void TestWebService()
+        {
             List<Currency> list = CurrencyListTest().Result;
             int count = 1;
             foreach (var currency in list)
@@ -29,9 +72,8 @@ namespace Tests
             int sum = int.Parse(Console.ReadLine());
             ConvertResult result2 = GetResult(list[from - 1].symbol, list[to - 1].symbol, sum).Result;
             Console.WriteLine($"{result2.result.amountToConvert} {result2.result.from} = {Math.Round(result2.result.convertedAmount)} {result2.result.to}");
-            Console.ReadLine(); 
-
         }
+
         static async Task<ConvertResult> GetResult(string from, string to, double amount)
         {
             var client = new HttpClient();

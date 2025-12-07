@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\LibraryModels.csproj" />
+    <ProjectReference Include="..\WebApiClient\WebApiClient.csproj" />
   </ItemGroup>
 
 </Project>
