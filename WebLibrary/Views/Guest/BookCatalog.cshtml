@@ -1,0 +1,45 @@
+﻿@using LibraryModels 
+@model CatalogViewModel
+@{
+    ViewData["Title"] = "BookCatalog";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+}
+<link href="~/stylesheets/catalog.css" rel="stylesheet" />
+<h1 class="bookCatalog"> Book Catalog</h1>
+<div class="books">
+    @foreach (Book book in Model.Books)
+    {
+        <div class="book">
+            <a href="http://localhost:5195/guest/viewbook/?bookId=@book.BookId">
+                <img class="bookPicture" src="http://localhost:5185/images/books/@book.BookImage" />
+            </a>
+        <h1 class="bookTitle">
+            <a href="http://localhost:5195/guest/viewbook/?bookId=@book.BookId">
+                @book.BookName
+         </a>
+        </h1>
+        </div>
+    }
+    
+
+
+
+</div>
+<div class="paging">
+    @for(int i = 1; i <= Model.PageCount; i++)
+   {
+        string path = $"http://localhost:5195/guest/BookCatalog/?page={i}";
+        <p class="pagenumber">
+        @if(Model.AuthorId!=null)
+        {
+            path = path + "&authorId=" + Model.AuthorId;
+        }
+        @if(Model.GanreId!=null)
+        {
+            path = path + "&ganreId=" + Model.GanreId;
+        }
+        <a href="@path">@i</a>
+    </p>
+  
+   }
+</div>

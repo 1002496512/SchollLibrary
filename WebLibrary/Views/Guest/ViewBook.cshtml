@@ -1,0 +1,40 @@
+﻿@using LibraryModels
+@model BookViewModel
+@{
+    ViewData["Title"] = "GetBook";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+}
+<link href="~/stylesheets/viewbook.css" rel="stylesheet" />
+<div class="bookSection">
+    <div class="bookImageBlock">
+        <img class="bookImage" src="http://localhost:5185/images/books/@Model.Book.BookImage" />
+    </div>
+    <div class="bookDetails">
+        <h1 class="bookHead">@Model.Book.BookName</h1>
+
+        <p class="bookDescription">@Model.Book.BookDescription</p>
+
+       
+            <div class="authors">
+                @foreach (Author author in Model.Authors)
+                {
+                    <section class="author">
+                        <img class="authorImage" src="http://localhost:5185/images/authors/@author.AuthorPicture" />
+                        <span class="authorName">@author.AuthorFirstName @author.AuthorLastName</span>
+                    </section>
+                }
+            </div>
+        
+        <div class="typesBook">
+          @foreach (Ganre ganre in Model.Ganres)
+            {
+                <span class="typeBook" data-typeBookId="">
+                    <a href="http://localhost:5195/guest/viewbook/?ganreId=@ganre.GanreId">
+                         @ganre.GanreName
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+</div>
+

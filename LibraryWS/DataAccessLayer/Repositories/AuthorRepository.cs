@@ -1,5 +1,6 @@
 ﻿using LibraryModels;
 using System.Data;
+using System.Net;
 
 namespace LibraryWS
 {
@@ -93,6 +94,29 @@ namespace LibraryWS
             this.dbContext.AddParameter("@AuthorPicture", item.AuthorPicture);
             this.dbContext.AddParameter("@AuthorId", item.AuthorId);
             return this.dbContext.Insert(sql) > 0;
+        }
+
+        public List<Author> GetAuthorsByBook(string bookId)
+        {
+            List<Author> authors = new List<Author>();
+            string sql = @"SELECT Authors.AuthorId, Authors.AuthorFirstName,
+                                  Authors.AuthorLastName, Authors.AuthorYear,
+                                  Authors.CountryId, Authors.AuthorPicture,
+                                  BooksAuthors.BookId
+                           FROM Authors INNER JOIN BooksAuthors ON 
+                                Authors.AuthorId = BooksAuthors.AuthorId
+                                WHERE BooksAuthors.BookId=@BookId";
+                        this.dbContext.AddParameter("@BookId", bookId);
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+
+                    authors.Add(this.factoryModels.AuthorCreator.CreateModel(reader));
+                }
+
+            }
+            return authors;
         }
     }
 }

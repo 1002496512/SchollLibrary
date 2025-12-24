@@ -17,7 +17,8 @@ namespace LibraryWS.Controllers
         }
 
         [HttpGet]
-        public CatalogViewModel GetBookCatalog(string authorId = null, string ganreId = null, int page = 0)
+        public CatalogViewModel GetBookCatalog(string authorId = null,
+            string ganreId = null, int page = 0)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
             catalogViewModel.GanreId = ganreId;
@@ -29,33 +30,34 @@ namespace LibraryWS.Controllers
                 this.repositoryFactory.ConnectDb();
                 catalogViewModel.Ganres = this.repositoryFactory.GanreRepository.GetAll();
                 catalogViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAll();
-                if (authorId == null && ganreId == null && page == 0)
-                {
-                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetAll();
-                }
-                else if (authorId != null && ganreId == null && page == 0)
+                
+                if (authorId != null && ganreId == null && page == 0)
                 {
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
+                    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
                 }
                 else if (authorId == null && ganreId != null && page == 0)
                 {
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
+                    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
                 }
                 else if (authorId == null && ganreId == null && page != 0)
                 {
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksByPage(page);
+                    catalogViewModel.PageCount = BookCount( this.repositoryFactory.BookRepository.AllBookCount());
                 }
                 else if (authorId != null && ganreId == null && page != 0)
                 {
-                    int booksperPage = 10;
+                    catalogViewModel.PageCount = BookCount(this.repositoryFactory.BookRepository.AllBookCount());
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
                     catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
 
                 }
                 else if (authorId == null && ganreId != null && page != 0)
                 {
-                    int booksperPage = 10;
+                    
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
+                    catalogViewModel.PageCount =BookCount(catalogViewModel.Books.Count);
                     catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 }
                 return catalogViewModel;
@@ -70,14 +72,26 @@ namespace LibraryWS.Controllers
             }
 
         }
-
-        [HttpGet]
-        public Book GetBook(string bookId)
+        private int BookCount(int allBooks)
         {
+            int pageCount = allBooks / 10;
+            if (allBooks % 10 > 0)
+            {
+                pageCount += 1;
+            }
+            return pageCount;
+        }
+        [HttpGet]
+        public BookViewModel ViewBook(string bookId)
+        {
+            BookViewModel bookViewModel = new BookViewModel();
             try
             {
                 this.repositoryFactory.ConnectDb();
-                return this.repositoryFactory.BookRepository.GetById(bookId);
+                bookViewModel.Book = this.repositoryFactory.BookRepository.GetById(bookId);
+                bookViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAuthorsByBook(bookId);
+                bookViewModel.Ganres = this.repositoryFactory.GanreRepository.GetGanresByBook(bookId);
+                return bookViewModel;
             }
             catch (Exception ex)
             {

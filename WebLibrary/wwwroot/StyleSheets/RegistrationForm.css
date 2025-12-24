@@ -1,0 +1,65 @@
+﻿body {
+}
+
+.formDiv {
+    width: 800px;
+    margin: 100px auto;
+    border: 1px solid #c1c1c1;
+    box-shadow: 10px 10px 15px #c1c1c1;
+    padding: 20px;
+    display: flex;
+}
+.fieds {
+    list-style: none;
+}
+.field
+{
+    margin-bottom:20px;
+}
+.inputLable{
+    font-size: 18px;
+}
+.inputData {
+    width: 425px;
+    padding: 10px;
+}
+select.inputData  {
+    width: 425px;
+    padding: 7px 10px;
+}
+.inputLable
+{
+    display: inline-block;
+    width: 160px;
+}
+.sendForm {
+    width: 110px;
+    padding: 7px 10px;
+}
+.errorData {
+    color: red;
+    padding: 7px 10px;
+    display:inline-block;
+    font-size: 18px;
+}
+.RegistrationForm
+{
+    width:660px;
+    padding:20px;
+    margin: 100px auto;
+    border: 1px solid #c1c1c1;
+    box-shadow: 10px 10px 15px #c1c1c1;
+}
+.sendForm
+{
+    width: 210px;
+    padding: 17px 10px;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: SpecialElite;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+}
+

@@ -1,0 +1,77 @@
+﻿
+body{
+    font-family: 'SpecialElite';
+    
+}
+.bookSection {
+    width: 1200px;
+    margin: 100px auto;
+    border: 1px solid #c1c1c1;
+    padding: 20px;
+    display: flex;
+}
+
+.bookImageBlock {
+    padding: 10px;
+}
+.bookDetails {
+    padding: 10px;
+}
+.authorImage
+{
+    width:50px;
+    height:60px;
+}
+.typeBook
+{
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+}
+.books {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book {
+    width: 300px;
+    border: 1px solid #c1c1c1;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+.bookPicture {
+    width: 95%;
+}
+.authors {
+    display:flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.bookHead
+{
+    font-size: 34px;
+
+    margin-bottom: 20px;
+    text-align: center;
+}
+.bookDescriptionLabel 
+{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.author
+{
+    padding:10px;
+    margin: 10px;
+    display:flex;
+}
+.authorName
+{
+    font-size: 18px;
+    margin-left: 10px;
+    align-self: center;
+}
+

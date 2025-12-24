@@ -6,7 +6,7 @@ namespace LibraryWS
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+           
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -15,7 +15,7 @@ namespace LibraryWS
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseStaticFiles();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

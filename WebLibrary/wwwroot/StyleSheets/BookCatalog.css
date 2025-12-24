@@ -1,0 +1,44 @@
+﻿.bookCatalog {
+    font-size:48px;
+    color:navy;
+    text-align:center;
+    margin: 30px;
+}
+.books {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book
+{
+    width:300px;
+    border: 1px solid #808080;
+    padding:5px;
+    margin:5px;
+}
+.bookImage {
+    border: 1px solid #808080;
+    width: 280px;
+}
+.bookTitle {
+    font-size: 18px;
+    color: #808080;
+
+}
+.bookwraper{
+    display:flex;
+}
+.paging
+{
+    margin:20px;
+    display:flex;
+}
+.pageNumber{
+    width: 40px;
+    border:1px solid #c1c1c1;
+    background-color: cornflowerblue;
+    font-size: 20px;
+    color:darkblue;
+    padding:10px;
+    margin-right:10px;
+}

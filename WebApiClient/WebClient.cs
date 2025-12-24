@@ -72,8 +72,13 @@ namespace WebApiClient
                         if (responseMessage.IsSuccessStatusCode==true)
                         {
                             string result = responseMessage.Content.ReadAsStringAsync().Result;
-                            T data = JsonSerializer.Deserialize<T>(result);
-                            return data;
+                        JsonSerializerOptions options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
+
+                        T data = JsonSerializer.Deserialize<T>(result,options);
+                         return data;
                          }
                         else
                         {

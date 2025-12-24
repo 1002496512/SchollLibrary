@@ -1,0 +1,59 @@
+﻿.borrowList {
+    width: 1000px;
+    margin: 100px auto;
+    border: 1px solid #c1c1c1;
+    padding: 20px;
+}
+.borrowHeader {
+    display: flex;
+    justify-content:space-between;
+}
+.readerDetails {
+    display: flex;
+}
+.borrowLogo, readerDetails {
+    width: 600px;
+}
+.borrowHeader
+{
+    margin-bottom: 40px;
+}
+.readerImg {
+    display: block;
+    width: 60px;
+    height: 60px;
+}
+.borrows
+{
+    display:flex;
+}
+.bookDetals {
+    display: flex;
+}
+.bookPicture {
+    width: 40px;
+    height: 40px;
+    
+}
+.borrowDate
+{
+    margin-right:40px;
+}
+.bookDetals {
+    display: flex;
+    justify-content:space-between;
+   
+
+}
+.bookName {
+    width: 600px;
+    margin: 0 20px;
+}
+.borrowBooks
+{
+    margin-bottom: 40px;
+}
+.readerImg
+{
+    margin-left:20px;
+}

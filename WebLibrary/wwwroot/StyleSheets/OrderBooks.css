@@ -1,0 +1,85 @@
+﻿body {
+}
+
+.booksWraper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.books {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book {
+    width: 225px;
+    border: 1px solid #c1c1c1;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    position:relative;
+}
+
+.bookPicture {
+    width: 95%;
+}
+
+.bookTitle, .bookTypeLink {
+    font-size: 18px;
+    color: #808080;
+}
+
+.bookType {
+    text-align: right;
+    border: 1px solid #c1c1c1;
+    padding: 7px 20px;
+    margin: 0 10px 10px 10px;
+}
+
+.bookTypes {
+    width: 250px;
+    padding-top: 10px;
+}
+
+.bookType:hover, .bookTypeLink:hover {
+    background: #c1c1c1;
+    color: black;
+}
+
+.bookTypeLink {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.loaderImg {
+    display: inline-block;
+    width: 500px;
+    margin: 50px auto;
+}
+
+.loader {
+    text-align: center;
+}
+
+.leftSide {
+    width: 960px;
+}
+.checkList
+{
+    display:block;
+    position:absolute;
+}
+.button
+{
+    margin:20px;
+    width: 200px;
+    padding:15px;
+}
+.controlBlock
+{
+    text-align:center;
+}

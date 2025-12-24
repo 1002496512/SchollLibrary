@@ -1,0 +1,88 @@
+﻿.newUserForm
+{
+    width:800px;
+    margin:80px auto;
+    
+}
+.formTitle
+{
+    text-align:center;
+    color:navy;
+    font-family:Calibri;
+    font-size:30px;
+    padding:30px;
+    
+}
+.lable {
+    color: brown;
+    font-size: 20px;
+    width:160px;
+    display:inline-block;
+}
+.detail
+{
+    padding-top:20px;
+    position:relative;
+    display:flex;
+}
+
+.icon{
+    position:absolute;
+    left: 165px;
+    top:25px;
+    width:24px;
+}
+.text
+{
+    padding: 7px 7px 7px 40px;
+}
+.button
+{
+    padding:7px;
+    margin: 20px;
+}
+.cities {
+    padding: 7px;
+    width: 220px;
+    padding: 7px 7px 7px 40px;
+}
+.date {
+   
+    width: 220px;
+    border: 1px solid #c1c1c1;
+    padding: 7px 7px 7px 40px;
+}
+.file {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 7px;
+    width: 220px;
+    padding: 7px 7px 7px 40px;
+}
+.radiolable 
+{
+    margin:0px 15px 0 5px;
+}
+.left160
+{
+    padding-left:140px;
+}
+.footercontent {
+    margin-top: 20px;
+    border-top: 3px solid #c1c1c1;
+    padding: 15px 0;
+    display:flex;
+    justify-content:space-between;
+    font-size:20px;
+}
+.story {
+    padding: 7px;
+    width: 220px;
+    display: inline-block;
+}
+.error {
+    color: red;
+    margin-top: 7px;
+    margin-left: 20px;
+}
+

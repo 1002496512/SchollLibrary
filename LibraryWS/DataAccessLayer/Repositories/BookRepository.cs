@@ -6,9 +6,9 @@ namespace LibraryWS
 {
     public class BookRepository : Repository, IRepository<Book>
     {
-       public BookRepository(OledbContext OledbContext,
-                             FactoryModels FactoryModels):
-                             base(OledbContext, FactoryModels)
+        public BookRepository(OledbContext OledbContext,
+                              FactoryModels FactoryModels) :
+                              base(OledbContext, FactoryModels)
         {
 
         }
@@ -41,7 +41,7 @@ namespace LibraryWS
 
         public List<Book> GetAll()
         {
-           
+
             string sql = "SELECT * FROM Books";
             return GetBookList(sql);
         }
@@ -144,7 +144,7 @@ namespace LibraryWS
         {
             int booksperPage = 10;
             List<Book> books = this.GetAll();
-            return books.Skip(booksperPage * (page-1)).Take(booksperPage).ToList();
+            return books.Skip(booksperPage * (page - 1)).Take(booksperPage).ToList();
 
 
         }
@@ -167,7 +167,7 @@ namespace LibraryWS
 
         public bool AdBookGanre(string bookId, string ganreId)
         {
-          string sql = $@"INSERT INTO BooksGenres
+            string sql = $@"INSERT INTO BooksGenres
                             (
                               BookId, 
                               GanreId, 
@@ -210,6 +210,16 @@ namespace LibraryWS
             this.dbContext.AddParameter("@BookId", bookId);
             return this.dbContext.Insert(sql) > 0;
         }
+
+        public int AllBookCount()
+        {
+            string sql = $@"SELECT Count(Books.BookId) AS BookCount FROM Books";
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                reader.Read();
+                return Convert.ToInt32(reader["BookCount"]);
+            }
+        }
     }
-    }
+}
 

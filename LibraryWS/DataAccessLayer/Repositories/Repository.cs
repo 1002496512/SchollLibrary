@@ -6,7 +6,7 @@
        protected FactoryModels factoryModels;
 
         public Repository(OledbContext dbContext,
-                          FactoryModels FactoryModels)
+                          FactoryModels factoryModels)
         {
             this.dbContext =  dbContext;
             this.factoryModels = factoryModels;

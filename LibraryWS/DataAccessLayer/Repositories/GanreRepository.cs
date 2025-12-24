@@ -58,5 +58,23 @@ namespace LibraryWS
             this.dbContext.AddParameter("@GanreName", item.GanreName);
             return this.dbContext.Insert(sql) > 0;
         }
+
+        internal List<Ganre> GetGanresByBook(string bookId)
+        {
+            List<Ganre> ganres = new List<Ganre>();
+            string sql = @"SELECT Genres.GenreName, Genres.GenreId, BooksGenres.BookId
+                           FROM Genres INNER JOIN BooksGenres ON Genres.GenreId = BooksGenres.GenreId
+                           WHERE BooksGenres.BookId=@BookId";
+            this.dbContext.AddParameter("@BookId", bookId);
+
+            using (IDataReader reader = this.dbContext.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    ganres.Add(this.factoryModels.GanreCreator.CreateModel(reader));
+                }
+            }
+            return ganres;
+        }
     }
 }

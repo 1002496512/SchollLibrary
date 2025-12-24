@@ -17,5 +17,7 @@ namespace LibraryModels
         public string Page { get; set; }
         public int PagePerPage { get; set; }
 
+        public int PageCount { get; set; }
+
     }
 }

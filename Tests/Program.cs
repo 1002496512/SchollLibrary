@@ -22,14 +22,14 @@ namespace Tests
 
         static void TestWebClient()
         {
-           WebClient<Book> webClient = new WebClient<Book>();
+            WebClient<Book> webClient = new WebClient<Book>();
             webClient.Scheme = "http";
             webClient.Host = "localhost";
             webClient.Port = 5185;
             webClient.Path = "api/Guest/GetBook";
-            webClient.AddParameter("bookId", "45");
+            webClient.AddParameter("bookId", "76");
             Book book = webClient.Get();
-            Console.WriteLine($"{book.BookName} /r/n {book.BookDescription} ");
+            Console.WriteLine($"{book.BookName} \r\n {book.BookDescription} ");
         }   
         static string CalculateHash(string password, string salt)
         {
