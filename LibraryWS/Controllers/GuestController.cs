@@ -18,7 +18,7 @@ namespace LibraryWS.Controllers
 
         [HttpGet]
         public CatalogViewModel GetBookCatalog(string authorId = null,
-            string ganreId = null, int page = 0)
+            string ganreId = null, int page = 1)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
             catalogViewModel.GanreId = ganreId;
@@ -31,34 +31,35 @@ namespace LibraryWS.Controllers
                 catalogViewModel.Ganres = this.repositoryFactory.GanreRepository.GetAll();
                 catalogViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAll();
                 
-                if (authorId != null && ganreId == null && page == 0)
-                {
-                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
-                    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
-                }
-                else if (authorId == null && ganreId != null && page == 0)
-                {
-                    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
-                    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
-                }
-                else if (authorId == null && ganreId == null && page != 0)
+                //if (authorId != null && ganreId == null && page == 0)
+                //{
+                //    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
+                //    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
+                //}
+                //else if (authorId == null && ganreId != null && page == 0)
+                //{
+                //    catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
+                //    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count);
+                //}
+                if (authorId == null && ganreId == null && page != 0)
                 {
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksByPage(page);
-                    catalogViewModel.PageCount = BookCount( this.repositoryFactory.BookRepository.AllBookCount());
+                    catalogViewModel.PageCount = BookCount(this.repositoryFactory.BookRepository.AllBookCount());
+                   // catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 }
                 else if (authorId != null && ganreId == null && page != 0)
                 {
-                    catalogViewModel.PageCount = BookCount(this.repositoryFactory.BookRepository.AllBookCount());
+                    
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyAuthor(authorId);
-                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
+                    catalogViewModel.PageCount = BookCount(catalogViewModel.Books.Count); 
+                    catalogViewModel.Books = catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
 
                 }
                 else if (authorId == null && ganreId != null && page != 0)
                 {
-                    
                     catalogViewModel.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
                     catalogViewModel.PageCount =BookCount(catalogViewModel.Books.Count);
-                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
+                    catalogViewModel.Books= catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 }
                 return catalogViewModel;
             }
