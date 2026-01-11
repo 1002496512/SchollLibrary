@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LibraryModels;
 using static System.Reflection.Metadata.BlobBuilder;
+using LibraryModels;
 
 namespace LibraryWS.Controllers
 {
@@ -120,6 +121,31 @@ namespace LibraryWS.Controllers
             {
                  this.repositoryFactory.DisconnectDb();
             }
+        }
+
+        [HttpGet]
+        public RegistrationViewModel GetRegistrationViewModel()
+        {
+            RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+            try
+            {
+                this.repositoryFactory.ConnectDb();
+                registrationViewModel.Cities = this.repositoryFactory.CityRepository.GetAll();
+                registrationViewModel.Reader = null;
+                return registrationViewModel;
+            }
+
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                return null;
+            }
+
+            finally
+            {
+                this.repositoryFactory.DisconnectDb() ; 
+            }
+
         }
 
     }

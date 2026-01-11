@@ -3,7 +3,7 @@
 
 .formDiv {
     width: 800px;
-    margin: 100px auto;
+    margin: 20px auto;
     border: 1px solid #c1c1c1;
     box-shadow: 10px 10px 15px #c1c1c1;
     padding: 20px;
@@ -46,7 +46,7 @@ select.inputData  {
 {
     width:660px;
     padding:20px;
-    margin: 100px auto;
+    margin: 50px auto;
     border: 1px solid #c1c1c1;
     box-shadow: 10px 10px 15px #c1c1c1;
 }

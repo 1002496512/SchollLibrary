@@ -11,6 +11,7 @@ namespace LibraryModels
     {
         public override bool IsValid(object? value)
         {
+            if (value == null) return false;
             string[] allowedExtensions = { ".jpg", ".png", ".gif" };
             string fileName = value.ToString();
             string extension = fileName.Substring(fileName.Length - 4).ToLower();

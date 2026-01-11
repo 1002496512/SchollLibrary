@@ -11,6 +11,7 @@ namespace LibraryModels
     {
         public override bool IsValid(object? value)
         {
+            if(value==null) return false;
             string str = value.ToString();
             char firstLetter = str[0];
             if(firstLetter<=65 || firstLetter >= 90)

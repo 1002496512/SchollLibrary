@@ -2,6 +2,8 @@
 using LibraryModels;
 using WebApiClient;
 using System.Net;
+using System.Collections.Generic;
+using LibraryModels;
 
 namespace WebLibrary.Controllers
 {
@@ -22,8 +24,8 @@ namespace WebLibrary.Controllers
             client.Host = "localhost";
             client.Port = 5185;
             client.Path = "api/Guest/GetBookCatalog";
-          
-            if(authorId != null)
+
+            if (authorId != null)
             {
                 client.AddParameter("authorId", authorId);
             }
@@ -52,5 +54,57 @@ namespace WebLibrary.Controllers
             return View(bookViewModel);
         }
 
+
+        [HttpGet]
+        public IActionResult ViewRegistrationForm()
+        {
+            WebClient<RegistrationViewModel> client = new WebClient<RegistrationViewModel>();
+            client.Scheme = "http";
+            client.Host = "localhost";
+            client.Port = 5185;
+            client.Path = "api/Guest/GetRegistrationViewModel";
+            RegistrationViewModel registrationViewModel = client.Get();
+            return View(registrationViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ReaderRegistration(Reader reader)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View("ViewRegistrationForm", GetRegistrationViewModel(reader));
+            }
+            bool ok = PostReader(reader);
+            if (ok == true)
+            {
+                HttpContext.Session.SetString("readerId", reader.ReaderId);
+                return RedirectToAction("HomePage", "guest");
+            }
+            ViewBag.Message = "Registration failed. Try again.";
+            return View("ViewRegistrationForm", GetRegistrationViewModel(reader));
+
+        }
+
+        private RegistrationViewModel GetRegistrationViewModel(Reader reader)
+        {
+            WebClient<RegistrationViewModel> client = new WebClient<RegistrationViewModel>();
+            client.Scheme = "http";
+            client.Host = "localhost";
+            client.Port = 5185;
+            client.Path = "api/Guest/GetRegistrationViewModel";
+            RegistrationViewModel registrationViewModel = client.Get();
+            registrationViewModel.Reader = reader;
+            return registrationViewModel;
+        }
+
+        private bool PostReader(Reader reader)
+        {
+            WebClient<Reader> clientReader = new WebClient<Reader>();
+            clientReader.Scheme = "http";
+            clientReader.Host = "localhost";
+            clientReader.Port = 5185;
+            clientReader.Path = "api/Guest/RegisterReader";
+            return clientReader.Post(reader);
+        }
     }
 }
