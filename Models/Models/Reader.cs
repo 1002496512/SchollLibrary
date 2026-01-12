@@ -19,7 +19,7 @@ namespace LibraryModels
         string readerNickName;
         string readerPassword;
 
-        public string Salt{get; set; }
+        public string Salt { get; set; } = "";
 
         [Required(ErrorMessage = "You must enter Id")]
         [StringLength(9, MinimumLength = 9, ErrorMessage = "reader Id cannot must be 9 digits")]
@@ -87,6 +87,8 @@ namespace LibraryModels
             get { return readerPassword; }
             set { readerPassword = value; }
         }
+
+
 
     }
 }

@@ -68,13 +68,13 @@ namespace WebLibrary.Controllers
         }
 
         [HttpPost]
-        public IActionResult ReaderRegistration(Reader reader)
+        public IActionResult ReaderRegistration(Reader reader, IFormFile file)
         {
             if (ModelState.IsValid == false)
             {
                 return View("ViewRegistrationForm", GetRegistrationViewModel(reader));
             }
-            bool ok = PostReader(reader);
+            bool ok = PostReader(reader, file);
             if (ok == true)
             {
                 HttpContext.Session.SetString("readerId", reader.ReaderId);
@@ -105,6 +105,15 @@ namespace WebLibrary.Controllers
             clientReader.Port = 5185;
             clientReader.Path = "api/Guest/RegisterReader";
             return clientReader.Post(reader);
+        }
+        private bool PostReader(Reader reader, IFormFile file)
+        {
+            WebClient<Reader> clientReader = new WebClient<Reader>();
+            clientReader.Scheme = "http";
+            clientReader.Host = "localhost";
+            clientReader.Port = 5185;
+            clientReader.Path = "api/Guest/RegisterReader";
+            return clientReader.Post(reader,file.OpenReadStream());
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LibraryModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using LibraryModels;
+using System.Text.Json;
 
 namespace LibraryWS.Controllers
 {
@@ -106,10 +107,11 @@ namespace LibraryWS.Controllers
         }
 
         [HttpPost]   
-        public bool RegisterReader([FromBody] Reader reader)
+        public bool RegisterReader([FromForm] string data, IFormFile file)
         {
             try
             {
+                Reader reader = JsonSerializer.Deserialize<Reader>(data);
                 this.repositoryFactory.ConnectDb();
                 return this.repositoryFactory.ReaderRepository.Create(reader);
             }

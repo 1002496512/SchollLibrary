@@ -6,7 +6,8 @@
 }
 <link href="~/stylesheets/registrationform.css" rel="stylesheet" />
 
-<form asp-controller="Guest" asp-action="ReaderRegistration" class="RegistrationForm" method="post">
+<form asp-controller="Guest" asp-action="ReaderRegistration"
+       class="RegistrationForm" method="post" enctype="multipart/form-data">
     <ul class="fieds">
         <li class="field">
             <label class="inputLable">Reader Id</label>
@@ -17,14 +18,13 @@
         <li class="field">
             <label class="inputLable">Reader First Name</label>
             <input asp-for="Reader.ReaderFirstName" class="inputData"
-            type="text" 
-                   value="ReaderFirstName" />
+            type="text" value="Readerfirstname" />
             <span asp-validation-for="Reader.ReaderFirstName" class="errorData" id="ReaderFirstNameError"></span>
         </li>
         <li class="field">
             <label class="inputLable">Reader Last Name</label>
             <input asp-for ="Reader.ReaderLastName" class="inputData" type="text" 
-                   value="ReaderLastName" />
+                   value="Readerastname" />
             <span asp-validation-for="Reader.ReaderLastName" class="errorData" id="ReaderLastNameError"></span>
         </li>
         <li class="field">
@@ -53,16 +53,23 @@
         <li class="field">
             <label class="inputLable">Reader Password</label>
             <input asp-for="Reader.ReaderPassword" class="inputData" type="text" 
-            value="1245"/>
+            value="124567"/>
             <span asp-validation-for="Reader.ReaderPassword"  class="errorData" 
-            value="Password"></span>
+            ></span>
         </li>
-       @*  <li class="field">
+
+        <li class="field">
+            <label class="inputLable">Reader NickName</label>
+            <input asp-for="Reader.ReaderNickName" class="inputData" type="text"
+                   value="Alex1234" />
+            <span asp-validation-for="Reader.ReaderNickName" class="errorData"></span>
+        </li>
+       <li class="field">
             <label class="inputLable">Reader Photo</label>
-            <input class="inputData" type="file"  id="ValidatePasword" />
-        </li> *@
+            <input class="inputData" type="file"  id="ValidatePasword" name="file" />
+        </li> 
         <input asp-for="Reader.ReaderImage" class="inputData" type="text"  
-              value="aaaa.jpg"/>
+               value="aaaa.jpg"/>
         <li class="field">
             <label class="inputLable"></label>
             <button class="sendForm" type="submit">Send Data</button>
