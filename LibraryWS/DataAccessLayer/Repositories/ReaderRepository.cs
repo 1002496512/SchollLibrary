@@ -32,17 +32,19 @@ namespace LibraryWS
                                @ReaderImage, @CityId, 
                                @ReaderNickName, @ReaderPassword,@ReaderSalt
                            )";
+            
             this.dbContext.AddParameter("@ReaderId", item.ReaderId);
             this.dbContext.AddParameter("@ReaderFirstName", item.ReaderFirstName);
             this.dbContext.AddParameter("@ReaderLastName", item.ReaderLastName);
             this.dbContext.AddParameter("@ReaderAdress", item.ReaderAdress);
-            this.dbContext.AddParameter("@CityId", item.CityId);
-            this.dbContext.AddParameter("@ReaderTelephone", item.ReaderTelephone);
-            this.dbContext.AddParameter("@ReaderImage", item.ReaderImage);
+            this.dbContext.AddParameter("@ReaderTelephone", item.ReaderTelephone); // הועבר למקום ה-5
+            this.dbContext.AddParameter("@ReaderImage", item.ReaderImage); // הועבר למקום ה-6
+            this.dbContext.AddParameter("@CityId", item.CityId); // הועבר למקום ה-7
             this.dbContext.AddParameter("@ReaderNickName", item.ReaderNickName);
             string salt = GenerateSalt();
             this.dbContext.AddParameter("@ReaderPassword", CalculateHash(item.ReaderPassword, salt));
-            this.dbContext.AddParameter("@ReaderSalt",salt );  
+            this.dbContext.AddParameter("@ReaderSalt", salt);
+
             return this.dbContext.Insert(sql) > 0;
         }
 

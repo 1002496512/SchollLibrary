@@ -7,7 +7,8 @@
 <link href="~/stylesheets/registrationform.css" rel="stylesheet" />
 
 <form asp-controller="Guest" asp-action="ReaderRegistration"
-       class="RegistrationForm" method="post" enctype="multipart/form-data">
+       class="RegistrationForm" method="post"
+       enctype="multipart/form-data">
     <ul class="fieds">
         <li class="field">
             <label class="inputLable">Reader Id</label>
@@ -48,7 +49,7 @@
                     <option value="@city.CityId">@city.CityName</option>
                 }
             </select>
-            <span asp-validation-for="Reader.CityId" class="errorData" id="CityIdError"></span>
+            <span asp-validation-for="Reader.CityId" class="errorData"></span>
         </li>
         <li class="field">
             <label class="inputLable">Reader Password</label>
@@ -66,7 +67,7 @@
         </li>
        <li class="field">
             <label class="inputLable">Reader Photo</label>
-            <input class="inputData" type="file"  id="ValidatePasword" name="file" />
+            <input class="inputData" type="file" name="file" />
         </li> 
         <input asp-for="Reader.ReaderImage" class="inputData" type="text"  
                value="aaaa.jpg"/>
