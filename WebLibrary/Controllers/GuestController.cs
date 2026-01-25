@@ -115,5 +115,33 @@ namespace WebLibrary.Controllers
             clientReader.Path = "api/Guest/RegisterReader";
             return clientReader.Post(reader,file.OpenReadStream());
         }
+
+
+        [HttpGet]
+        public PartialViewResult BookListView(string authorId = null, string ganreId = null, int page = 1)
+        {
+            // 1/get data from WS
+            WebClient<CatalogBooks> client = new WebClient<CatalogBooks>();
+            client.Scheme = "http";
+            client.Host = "localhost";
+            client.Port = 5185;
+            client.Path = "api/Guest/GetBookList";
+
+            if (authorId != null)
+            {
+                client.AddParameter("authorId", authorId);
+            }
+            if (ganreId != null)
+            {
+                client.AddParameter("ganreId", ganreId);
+            }
+            if (page != 0)
+            {
+                client.AddParameter("page", page.ToString());
+            }
+            CatalogBooks catalogBooks = client.Get();
+            return View(catalogBooks);
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@using LibraryModels 
+﻿@using LibraryModels
 @model CatalogViewModel
 @{
     ViewData["Title"] = "BookCatalog";
@@ -13,33 +13,37 @@
             <a href="http://localhost:5195/guest/viewbook/?bookId=@book.BookId">
                 <img class="bookPicture" src="http://localhost:5185/images/books/@book.BookImage" />
             </a>
-        <h1 class="bookTitle">
-            <a href="http://localhost:5195/guest/viewbook/?bookId=@book.BookId">
-                @book.BookName
-         </a>
-        </h1>
+            <h1 class="bookTitle">
+                <a href="http://localhost:5195/guest/viewbook/?bookId=@book.BookId">
+                    @book.BookName
+                </a>
+            </h1>
         </div>
     }
-    
+
 
 
 
 </div>
-<div class="paging">
-    @for(int i = 1; i <= Model.PageCount; i++)
-   {
-        string path = $"http://localhost:5195/guest/BookCatalog/?page={i}";
-        <p class="pagenumber">
-        @if(Model.AuthorId!=null)
+@if (Model.PageCount > 1)
+{
+
+    <div class="paging">
+        @for (int i = 1; i <= Model.PageCount; i++)
         {
-            path = path + "&authorId=" + Model.AuthorId;
+            string path = $"http://localhost:5195/guest/BookCatalog/?page={i}";
+            <p class="pagenumber">
+                @if (Model.AuthorId != null)
+                {
+                    path = path + "&authorId=" + Model.AuthorId;
+                }
+                @if (Model.GanreId != null)
+                {
+                    path = path + "&ganreId=" + Model.GanreId;
+                }
+                <a href="@path">@i</a>
+            </p>
+
         }
-        @if(Model.GanreId!=null)
-        {
-            path = path + "&ganreId=" + Model.GanreId;
-        }
-        <a href="@path">@i</a>
-    </p>
-  
-   }
-</div>
+    </div>
+}
