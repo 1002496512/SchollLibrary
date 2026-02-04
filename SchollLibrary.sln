@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryWS", "LibraryWS\Libr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiClient", "WebApiClient\WebApiClient.csproj", "{961A6259-B6EA-402E-932C-6A8461F846DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLibrary", "WebLibrary\WebLibrary.csproj", "{0397B548-ED40-4121-8352-EBD731864D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLibrary", "WebLibrary\WebLibrary.csproj", "{0397B548-ED40-4121-8352-EBD731864D2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarianApp", "LibrarianApp\LibrarianApp.csproj", "{BA48708C-2356-4912-86D8-82A22333EABA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{0397B548-ED40-4121-8352-EBD731864D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0397B548-ED40-4121-8352-EBD731864D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0397B548-ED40-4121-8352-EBD731864D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA48708C-2356-4912-86D8-82A22333EABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA48708C-2356-4912-86D8-82A22333EABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA48708C-2356-4912-86D8-82A22333EABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA48708C-2356-4912-86D8-82A22333EABA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
