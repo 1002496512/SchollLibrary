@@ -30,13 +30,14 @@
         <ListBox x:Name="listBox_Copy"
             SelectionMode="Multiple"
             Height="120" Width="153" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Top="233" Canvas.Left="411" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="button_Copy" Content="Add Book" Canvas.Left="280" Canvas.Top="379" Width="229" Height="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="button_Copy_Click"/>
+        <Button x:Name="button_Copy" Content="Add Book" Canvas.Left="249" Canvas.Top="378" Width="152" Height="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="button_Copy_Click"/>
         <TextBox x:Name="textBox" Canvas.Left="236" TextWrapping="Wrap" Text="TextBox" Canvas.Top="49" Width="332" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_Copy" 
                  
                   AcceptsReturn="True" 
                  Canvas.Left="238"
                  TextWrapping="Wrap" Text="TextBox" Canvas.Top="117" Width="334" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68"/>
+        <Button x:Name="button_Copy1" Content="Close" Canvas.Left="415" Canvas.Top="377" Width="152" Height="36" Click="button_Copy_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
     </Canvas>
 </Window>
