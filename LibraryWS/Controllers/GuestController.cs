@@ -172,8 +172,8 @@ namespace LibraryWS.Controllers
                     catalogBooks.Books = this.repositoryFactory.BookRepository.GetBooksbyGanre(ganreId);
                 }
                 int books = catalogBooks.Books.Count;
-                if (books > booksperPage)
-                    catalogBooks.Books = catalogBooks.Books.Skip(catalogBooks.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
+                //if (books > booksperPage)
+                //    catalogBooks.Books = catalogBooks.Books.Skip(catalogBooks.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 catalogBooks.PageCount = books / catalogBooks.PagePerPage;
                 if (books % catalogBooks.PagePerPage > 0)
                     catalogBooks.PageCount++;
