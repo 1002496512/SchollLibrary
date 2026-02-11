@@ -38,7 +38,7 @@ namespace LibrarianApp.Frames
             client.Path = "api/Admin/GetBooks";
             this.books = await client.GetAsync(); 
             this.listViewBooks.ItemsSource = this.books;    
-            //this.DataContext = this.books;
+            this.DataContext = this.books;
         }
     }
 

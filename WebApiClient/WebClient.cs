@@ -99,7 +99,11 @@ namespace WebApiClient
                     if (responseMessage.IsSuccessStatusCode == true)
                     {
                         string result = await responseMessage.Content.ReadAsStringAsync();
-                        T data = JsonSerializer.Deserialize<T>(result);
+                        JsonSerializerOptions options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
+                        T data = JsonSerializer.Deserialize<T>(result,options);
                         return data;
                     }
                     else
