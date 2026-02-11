@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="LibrarianApp.Frames.BooksPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LibrarianApp.Frames"
+             xmlns:con="clr-namespace:LibrarianApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <con:ImagePathConvertor x:Key="imagePathConvertor"/>
+    </UserControl.Resources>
+    <Canvas>
+        <ListView x:Name="listViewBooks" 
+                  Height="384"
+                  Width="775"
+                  Canvas.Top="14" Canvas.Left="11" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black"
+                            
+                            BorderThickness="1" 
+                            Height="83" 
+                            Canvas.Left="23" 
+                            Canvas.Top="21"
+                            Width="675">
+                        <Canvas Width="675"
+                            Margin="0,0,0,23">
+                            <Image Source="{Binding BookImage,Converter={StaticResource imagePathConvertor}}"
+                                   x:Name="imageBook"
+                                   Width="50"
+                                   Height="68"
+                                   Canvas.Left="10"
+                                   Canvas.Top="5"/>
+
+                            <Button x:Name="btnInfo"
+                                     Height="32" 
+                                     Canvas.Left="540" 
+                                     Canvas.Top="25"
+                                     Width="32"
+                                     Style="{StaticResource ImageButtonStyle}">
+                                <Image Source="/Images/infoicon.png"/>
+                            </Button>
+                            <Button x:Name="btnEdit"
+                                 Canvas.Left="585"
+                                 Canvas.Top="25"
+                                 Width="32"
+                                 Style="{StaticResource ImageButtonStyle}" 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Image Source="/Images/editicon.png" />
+                            </Button>
+                            <Button x:Name="btnDelete"
+                                      Canvas.Left="630"
+                                      Canvas.Top="25"
+                                      Width="32"
+                                      Style="{StaticResource ImageButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Image Source="/Images/deleteicon.png" />
+                            </Button>
+                            <Label x:Name="labelBookTitele"
+                                   Content="{Binding BookName}"
+                                   Canvas.Left="77"
+                                   Canvas.Top="22"
+                                   Width="450"
+                                   FontSize="30" 
+                                   FontFamily="{StaticResource SpecialElite}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Canvas>
+
+                    </Border>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Canvas>
+</UserControl>

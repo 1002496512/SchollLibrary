@@ -55,7 +55,7 @@
                   Foreground="#86d29c"
                   FontSize="25"
                      FontFamily="{StaticResource SpecialElite}"
-                  Click="StartPage_Click">
+                  Click="BookPage_Click">
              Books
          </Hyperlink>
                         </TextBlock>

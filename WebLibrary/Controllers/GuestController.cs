@@ -140,7 +140,7 @@ namespace WebLibrary.Controllers
                 client.AddParameter("page", page.ToString());
             }
             CatalogBooks catalogBooks = client.Get();
-            return View(catalogBooks);
+            return PartialView(catalogBooks);
         }
 
     }

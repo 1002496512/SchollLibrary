@@ -11,12 +11,16 @@
   <ItemGroup>
     <None Remove="Fonts\SpecialElite-Regular.ttf" />
     <None Remove="Images\author.png" />
+    <None Remove="Images\bookplace.png" />
     <None Remove="Images\books.png" />
     <None Remove="Images\borrow.png" />
+    <None Remove="Images\deleteicon.png" />
+    <None Remove="Images\editicon.png" />
     <None Remove="Images\exit.png" />
     <None Remove="Images\ganres.png" />
     <None Remove="Images\ganres2.png" />
     <None Remove="Images\home.png" />
+    <None Remove="Images\infoicon.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logout.png" />
     <None Remove="Images\logout2.png" />
@@ -25,14 +29,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Models\LibraryModels.csproj" />
+    <ProjectReference Include="..\WebApiClient\WebApiClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Fonts\SpecialElite-Regular.ttf" />
     <Resource Include="Images\author.png" />
+    <Resource Include="Images\bookplace.png" />
     <Resource Include="Images\books.png" />
     <Resource Include="Images\borrow.png" />
+    <Resource Include="Images\deleteicon.png" />
+    <Resource Include="Images\editicon.png" />
     <Resource Include="Images\exit.png" />
     <Resource Include="Images\ganres.png" />
     <Resource Include="Images\ganres2.png" />
     <Resource Include="Images\home.png" />
+    <Resource Include="Images\infoicon.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\logout.png" />
     <Resource Include="Images\logout2.png" />

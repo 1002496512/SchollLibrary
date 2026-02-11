@@ -106,5 +106,25 @@ namespace LibraryWS.Controllers
             }
         }
 
+        [HttpGet]
+        public List<Book> GetBooks()
+        {
+            try
+            {
+                this.repositoryFactory.ConnectDb();
+                return this.repositoryFactory.BookRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                this.repositoryFactory.DisconnectDb();
+            }
+
+        }
+
+
     }
 }

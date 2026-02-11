@@ -19,6 +19,7 @@ namespace LibrarianApp
     {
         StartPage startPage;
         LoginPage loginPage;
+        BooksPage booksPage;    
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +43,14 @@ namespace LibrarianApp
 
         }
 
+         private void ViewBooksPage()
+        {
+            if (this.booksPage == null)
+                this.booksPage = new BooksPage();
+            this.frameContent.Content = this.booksPage;
+
+
+        }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -62,6 +71,11 @@ namespace LibrarianApp
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             ViewLoginPage();
+        }
+
+        private void BookPage_Click(object sender, RoutedEventArgs e)
+        {
+            ViewBooksPage();
         }
     }
 }

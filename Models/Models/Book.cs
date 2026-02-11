@@ -34,7 +34,7 @@ namespace LibraryModels
         //[FirstLetterCapital(ErrorMessage = "The first letter of the name must be a capital letter and the rest must be lowercase.")]    
         public string BookName
         {
-                           get { return this.bookName; }
+                get { return this.bookName; }
                 set { this.bookName = value; }  
         }
 
