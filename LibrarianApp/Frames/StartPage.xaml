@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LibrarianApp.Frames"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
-    <Grid>
-        <Image Source="/Images/startpage.png" ></Image>  
+    <Grid >
+        <Image Source="/Images/startpage.png" Margin="20"></Image>  
     </Grid>
 </UserControl>

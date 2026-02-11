@@ -12,31 +12,33 @@
         WindowStyle="None" MouseDown="Window_MouseDown">
     <Window.Resources>
         <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
+        
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" >
+    <Border BorderThickness="2" BorderBrush="Navy" Margin="0,0,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" >
 
-            </RowDefinition>
-            <RowDefinition Height="*" >
+                </RowDefinition>
+                <RowDefinition Height="*" >
 
-            </RowDefinition>
-        </Grid.RowDefinitions>
-        <Border Padding="30,20,10,30" 
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Padding="30,20,10,30" 
                 Background="Black"
                 Grid.Row="0"
                 Grid.RowSpan="2">
-            <StackPanel>
-                <Image Source="/Images/logo.png" Margin="0,10,0,10"></Image>
-                <Border BorderThickness="1" BorderBrush="White" Margin="0,0,0,2"></Border>
-                <Border BorderThickness="1" BorderBrush="White" Margin="0,2,0,0"></Border>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/home.png" Height="32"></Image>
-                    <TextBlock Margin="10,20,10,10">
+                <StackPanel>
+                    <Image Source="/Images/logo.png" Margin="0,10,0,10"></Image>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="0,0,0,2"></Border>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="0,2,0,0"></Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/home.png" Height="32"></Image>
+                        <TextBlock Margin="10,20,10,10">
                         <Hyperlink  x:Name="StartPage"
                                  Foreground="#86d29c"
                                  FontSize="25"
@@ -44,11 +46,11 @@
                                  Click="StartPage_Click">
                             Home page
                         </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/books.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/books.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
          <Hyperlink  x:Name="BookPage"
                   Foreground="#86d29c"
                   FontSize="25"
@@ -56,11 +58,11 @@
                   Click="StartPage_Click">
              Books
          </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/author.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/author.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
 <Hyperlink  x:Name="hlAuthors"
          Foreground="#86d29c"
          FontSize="26"
@@ -68,23 +70,23 @@
          Click="StartPage_Click">
     Authors
 </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/readers.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/readers.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
                         <Hyperlink  x:Name="hlReaders"
                                  Foreground="#86d29c"
                                  FontSize="26"
                                     FontFamily="{StaticResource SpecialElite}"
                                  Click="StartPage_Click">
                             Readers
-                        </Hyperlink>        
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/borrow.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/borrow.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
           <Hyperlink  x:Name="hlBorrows"
                    Foreground="#86d29c"
                    FontSize="26"
@@ -92,11 +94,11 @@
                    Click="StartPage_Click">
               Borrows
           </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/ganres.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/ganres.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
 <Hyperlink  x:Name="hlGenres"
          Foreground="#86d29c"
          FontSize="26"
@@ -104,11 +106,11 @@
          Click="StartPage_Click">
     Genres
 </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/logout.png" Height="32"></Image>
-                    <TextBlock Margin="10,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/logout.png" Height="32"></Image>
+                        <TextBlock Margin="10,15,10,10">
 <Hyperlink  x:Name="hlLoginOut"
          Foreground="#86d29c"
          FontSize="26"
@@ -116,13 +118,13 @@
          Click="StartPage_Click">
     Log in
 </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <Border BorderThickness="1" BorderBrush="White" Margin="0,0,0,2"></Border>
-                <Border BorderThickness="1" BorderBrush="White" Margin="0,2,0,0"></Border>
-                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                    <Image Source="/Images/exit.png" Height="32"></Image>
-                    <TextBlock Margin="20,15,10,10">
+                        </TextBlock>
+                    </StackPanel>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="0,10,0,2"></Border>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="1,2,0,10"></Border>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Image Source="/Images/exit.png" Height="32"></Image>
+                        <TextBlock Margin="20,15,10,10">
 <Hyperlink  x:Name="hlexit"
          Foreground="Red"
          FontSize="30"
@@ -130,18 +132,18 @@
          Click="StartPage_Click">
    Exit
 </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
+                        </TextBlock>
+                    </StackPanel>
 
-            </StackPanel>
-        </Border>
-        <Frame x:Name="frameContent" Grid.Column="1" 
+                </StackPanel>
+            </Border>
+            <Frame x:Name="frameContent" Grid.Column="1" 
                     Grid.RowSpan="2"
                     Background="Snow" 
                     Width="700"
                     Height="600"
                     NavigationUIVisibility="Hidden">
-        </Frame>
-    </Grid>
-
+            </Frame>
+        </Grid>
+    </Border>
 </Window>
