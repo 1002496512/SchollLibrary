@@ -6,38 +6,171 @@
         xmlns:local="clr-namespace:LibrarianApp.Frames"
         mc:Ignorable="d"
         Title="NewBook" Height="414" Width="615">
+    <Window.Resources>
+        <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Canvas>
         <Label x:Name="label"
                Content="Book Name" 
                Canvas.Left="231"
-               Canvas.Top="25" RenderTransformOrigin="2.485,0.189"/>
+               Canvas.Top="25"
+               FontFamily="{StaticResource SpecialElite}"/>
         <Label x:Name="label1"
                Content="BookDescription"
                Canvas.Left="234"
-               Canvas.Top="93" 
-               Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="BookImage" Canvas.Left="45" Canvas.Top="28"/>
+               Canvas.Top="98" 
+               Width="112" 
+               FontFamily="{StaticResource SpecialElite}"
+               />
+        <Label x:Name="label2" 
+               FontFamily="{StaticResource SpecialElite}"
+               Content="BookImage" 
+               Canvas.Left="45" 
+               Canvas.Top="28"/>
         <Border Canvas.Left="48" Canvas.Top="52"
                 BorderThickness="1" BorderBrush="Black">
-            <Image x:Name="image" Height="153"  Width="145"/>
+            <Image x:Name="imageBook" Height="153"  Width="145"/>
         </Border>
-        <Button x:Name="button" Content="Select book image" Canvas.Left="51" Canvas.Top="220" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143" Height="35"/>
-        <Label x:Name="label3" Content="Authors" Canvas.Left="242" Canvas.Top="208" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94"/>
-        <ListBox x:Name="listBox"
+        <Button x:Name="buttonSelectImage"
+                Canvas.Left="47" 
+                Canvas.Top="220"
+                   Width="150" 
+                    Height="37"
+                    FontSize="20"
+                    FontFamily="{StaticResource SpecialElite}"
+                    Foreground="White"
+                    Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="32" Source="/Images/image.png"></Image>
+                    <Label Foreground="White"
+               Padding="10,10,0,0"
+               Content="Book Image"
+               FontSize="16"></Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Label FontFamily="{StaticResource SpecialElite}"
+               Content="Authors" 
+               Canvas.Left="242"
+               Canvas.Top="214" 
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Width="94"/>
+        <ListBox x:Name="listBoxAuthors"
+                  Padding="7"
                  SelectionMode="Multiple"
-                 Height="82" Width="149" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Top="232" Canvas.Left="245" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Label x:Name="label3_Copy" Content="Ganres" Canvas.Left="409" Canvas.Top="209" Width="94" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ListBox x:Name="listBox_Copy"
+                 Height="82"
+                 Width="149" 
+                 Canvas.Top="232"
+                 Canvas.Left="245"
+                 />
+        <Label  Content="Ganres"
+                Canvas.Left="409"
+                Canvas.Top="215" 
+                Width="94" 
+                FontFamily="{StaticResource SpecialElite}"
+                />
+        <ListBox x:Name="listBoxGenres"
+                  Padding="7"
             SelectionMode="Multiple"
-            Height="83" Width="153" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Top="233" Canvas.Left="411" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="button_Copy" Content="Add Book" Canvas.Left="246" Canvas.Top="341" Width="152" Height="36" HorizontalAlignment="Left" VerticalAlignment="Top" Click="button_Copy_Click"/>
-        <TextBox x:Name="textBox" Canvas.Left="236" TextWrapping="Wrap" Text="TextBox" Canvas.Top="49" Width="332" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Copy" 
-                 
-                  AcceptsReturn="True" 
+            Height="83"
+            Width="153"
+            Canvas.Top="233" 
+            Canvas.Left="411"
+            />
+        <Button x:Name="buttonAddBook"
+                Canvas.Left="246"
+                Canvas.Top="341"
+                    Width="150" 
+                    Height="37"
+                    FontSize="20"
+                    FontFamily="{StaticResource SpecialElite}"
+                    Foreground="White"
+                    Background="Navy">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="32" Source="/Images/Add.png"></Image>
+                    <Label Foreground="White"
+               Padding="15,10,0,0"
+               Content="Add Book"
+               FontSize="16"></Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <TextBox x:Name="textBoxBookName"
+                 Canvas.Left="236" 
+                 TextWrapping="Wrap" 
+                 Text="TextBox"
+                 Canvas.Top="49"
+                 Padding="7"
+                 Width="332"
+                 />
+        <TextBox x:Name="textBoxBookDescription" 
+                 Padding="7"
+                 AcceptsReturn="True" 
                  Canvas.Left="238"
-                 TextWrapping="Wrap" Text="TextBox" Canvas.Top="117" Width="334" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68"/>
-        <Button x:Name="button_Copy1" Content="Close" Canvas.Left="412" Canvas.Top="340" Width="152" Height="36" Click="button_Copy_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                 TextWrapping="Wrap"
+                 Canvas.Top="117"
+                 Width="334"
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Top"
+                 Height="68"/>
+        <Button x:Name="buttonClose" 
+                Canvas.Left="412"
+                Canvas.Top="340"
+                                  Width="150" 
+                    Height="37"
+                    FontSize="20"
+                    FontFamily="{StaticResource SpecialElite}"
+                    Foreground="White"
+                    Background="Navy">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="32" Source="/Images/close.png"></Image>
+                    <Label Foreground="White"
+               Padding="15,10,0,0"
+               Content="Close"
+               FontSize="16"></Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <TextBlock 
+                   Canvas.Left="310" 
+                   TextWrapping="Wrap"
+                   Text="" 
+                   Canvas.Top="31"
+                   Width="257"/>
+        <TextBlock 
+            Canvas.Left="334" 
+            TextWrapping="Wrap"
+            Text="" 
+            Canvas.Top="100"
+            Width="238" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock 
+            Canvas.Left="296" 
+            TextWrapping="Wrap"
+            Text="" 
+            Canvas.Top="214"
+            Width="99" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock 
+            Canvas.Left="456" 
+            TextWrapping="Wrap"
+            Text="" 
+            Canvas.Top="214"
+            Width="107" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
 
     </Canvas>
 </Window>
