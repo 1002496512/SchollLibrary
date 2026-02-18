@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Fonts\SpecialElite-Regular.ttf" />
     <None Remove="Images\Add.png" />
+    <None Remove="Images\addnewbook.png" />
     <None Remove="Images\author.png" />
     <None Remove="Images\bookplace.png" />
     <None Remove="Images\books.png" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <Resource Include="Fonts\SpecialElite-Regular.ttf" />
     <Resource Include="Images\Add.png" />
+    <Resource Include="Images\addnewbook.png" />
     <Resource Include="Images\author.png" />
     <Resource Include="Images\bookplace.png" />
     <Resource Include="Images\books.png" />

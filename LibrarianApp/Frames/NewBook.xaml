@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibrarianApp.Frames"
         mc:Ignorable="d"
-        Title="NewBook" Height="414" Width="615">
+        Title="NewBook" Height="430" Width="615">
     <Window.Resources>
         <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
         <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
@@ -49,7 +49,8 @@
                     FontSize="20"
                     FontFamily="{StaticResource SpecialElite}"
                     Foreground="White"
-                    Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    Background="Navy"
+                    Click="buttonSelectImage_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/image.png"></Image>
@@ -73,8 +74,20 @@
                  Height="82"
                  Width="149" 
                  Canvas.Top="232"
-                 Canvas.Left="245"
-                 />
+                 Canvas.Left="245">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} + {1}">
+                                <Binding Path="AuthorFirstName"></Binding>
+                                <Binding Path="AuthorLastName"></Binding>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label  Content="Ganres"
                 Canvas.Left="409"
                 Canvas.Top="215" 
@@ -88,6 +101,8 @@
             Width="153"
             Canvas.Top="233" 
             Canvas.Left="411"
+            DisplayMemberPath="GanreName"
+            SelectedValuePath="GanreId"
             />
         <Button x:Name="buttonAddBook"
                 Canvas.Left="246"
@@ -97,7 +112,9 @@
                     FontSize="20"
                     FontFamily="{StaticResource SpecialElite}"
                     Foreground="White"
-                    Background="Navy">
+                    Background="Navy"
+
+                Click="buttonAddBook_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/Add.png"></Image>

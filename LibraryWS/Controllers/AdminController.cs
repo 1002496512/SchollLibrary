@@ -22,13 +22,13 @@ namespace LibraryWS.Controllers
                 this.repositoryFactory.BeginTransaction();
                 bool ok = this.repositoryFactory.BookRepository.Create(newBookViewModel.Book);
                 string bookId = this.repositoryFactory.GetLastInsertedId().ToString();
-                foreach (string authorid in newBookViewModel.Authors)
+                foreach (Author author in newBookViewModel.Authors)
                 {
-                    ok = ok && this.repositoryFactory.BookRepository.AddBookAuthor(bookId, authorid);
+                    ok = ok && this.repositoryFactory.BookRepository.AddBookAuthor(bookId, author.AuthorId);
                 }
-                foreach (string ganreId in newBookViewModel.Genres)
+                foreach (Ganre ganre in newBookViewModel.Genres)
                 {
-                    ok = ok && this.repositoryFactory.BookRepository.AdBookGanre(bookId, ganreId);
+                    ok = ok && this.repositoryFactory.BookRepository.AdBookGanre(bookId, ganre.GanreId);
                 }
                 this.repositoryFactory.Commit();
                 return true;
@@ -125,6 +125,27 @@ namespace LibraryWS.Controllers
 
         }
 
+        [HttpGet]
+        public NewBookViewModel GetnewBookViewModel()
+        {
+            NewBookViewModel newBookViewModel = new NewBookViewModel();
+            newBookViewModel.Book = null;
+            try
+            {
+                this.repositoryFactory.ConnectDb();
+                newBookViewModel.Genres = this.repositoryFactory.GanreRepository.GetAll();
+                newBookViewModel.Authors = this.repositoryFactory.AuthorRepository.GetAll();
+                return newBookViewModel;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                this.repositoryFactory.DisconnectDb();
+            }
+        }
 
     }
 }

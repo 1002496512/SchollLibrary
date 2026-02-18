@@ -138,7 +138,7 @@
         <Frame x:Name="frameContent" Grid.Column="1" 
                     Grid.RowSpan="2"
                     Background="Snow" 
-                    Width="700"
+                    Width="720"
                     Height="600"
                     NavigationUIVisibility="Hidden">
         </Frame>
