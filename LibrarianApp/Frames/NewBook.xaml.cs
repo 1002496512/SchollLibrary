@@ -71,6 +71,7 @@ namespace LibrarianApp.Frames
             Stream stream = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
             WebClient<NewBookViewModel> apiClient = new WebClient<NewBookViewModel>();
             apiClient.Scheme = "http";
+
             apiClient.Host = "localhost";
             apiClient.Port = 5185;
             apiClient.Path = "api/Admin/AddNewBook";
