@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LibraryModels;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WebApiClient;
 
 namespace LibrarianApp.Frames
 {
@@ -19,13 +23,69 @@ namespace LibrarianApp.Frames
     /// </summary>
     public partial class NewBook : Window
     {
+        string imgPath;
+        NewBookViewModel newBookViewModel;  
         public NewBook()
         {
             InitializeComponent();
+            GetNewBookViewModel();
+        }
+        private async Task GetNewBookViewModel()
+        {
+            WebClient<NewBookViewModel> apiClient = new WebClient<NewBookViewModel>();
+            apiClient.Scheme = "http";
+            apiClient.Host = "localhost";
+            apiClient.Port = 5185;
+            apiClient.Path = "api/Admin/GetnewBookViewModel";
+            newBookViewModel = await apiClient.GetAsync();
+
+            if (newBookViewModel != null)
+            {
+                listBoxGenres.ItemsSource = newBookViewModel.Genres;
+                listBoxAuthors.ItemsSource = newBookViewModel.Authors;
+                this.DataContext = newBookViewModel;
+            }
+        }
+        private void buttonSelectImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter= "Only Imges (*.jpg;*png;*.gif)|*.jpg;*png;*gif";   
+            bool? ok = ofd.ShowDialog();
+            if (ok == true)
+            {
+                Uri uri = new Uri(ofd.FileName);
+                this.imageBook.Source = new BitmapImage(uri);
+                this.imgPath = ofd.FileName;
+            }
         }
 
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        private async void buttonAddBook_Click(object sender, RoutedEventArgs e)
         {
+            NewBookViewModel newBookViewModel = new NewBookViewModel();
+            newBookViewModel.Book = new Book();
+            newBookViewModel.Book.BookName = textBoxBookName.Text;
+            newBookViewModel.Book.BookDescription = textBoxBookDescription.Text;
+            newBookViewModel.Book.BookImage = System.IO.Path.GetExtension(this.imgPath);
+            newBookViewModel.Authors = this.listBoxAuthors.SelectedItems as List<Author>;
+            newBookViewModel.Genres = this.listBoxGenres.SelectedItems as List<Ganre>;
+            Stream stream = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
+            WebClient<NewBookViewModel> apiClient = new WebClient<NewBookViewModel>();
+            apiClient.Scheme = "http";
+
+            apiClient.Host = "localhost";
+            apiClient.Port = 5185;
+            apiClient.Path = "api/Admin/AddNewBook";
+            bool ok = await apiClient.PostAsync(newBookViewModel, stream);
+            if (ok == true)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+                MessageBox.Show("Adding new book was fail. Try later!",
+                                "Fail adding new book",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
 
         }
     }

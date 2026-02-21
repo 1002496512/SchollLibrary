@@ -40,6 +40,13 @@ namespace LibrarianApp.Frames
             this.listViewBooks.ItemsSource = this.books;    
             this.DataContext = this.books;
         }
+
+        private void buttonAddNewBook_Click(object sender, RoutedEventArgs e)
+        {
+            NewBook newBook = new NewBook();
+            newBook.Owner = Window.GetWindow(this); 
+            bool? result = newBook.ShowDialog();
+        }
     }
 
 
