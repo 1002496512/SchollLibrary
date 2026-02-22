@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryModels
 {
-    public class Book
+    public class Book:Model
     {
         string bookId;
         string bookName;

@@ -66,16 +66,22 @@ namespace LibrarianApp.Frames
             newBookViewModel.Book.BookName = textBoxBookName.Text;
             newBookViewModel.Book.BookDescription = textBoxBookDescription.Text;
             newBookViewModel.Book.BookImage = System.IO.Path.GetExtension(this.imgPath);
-            newBookViewModel.Authors = this.listBoxAuthors.SelectedItems as List<Author>;
-            newBookViewModel.Genres = this.listBoxGenres.SelectedItems as List<Ganre>;
+            newBookViewModel.Authors = this.listBoxAuthors.SelectedItems.Cast<Author>().ToList();
+            newBookViewModel.Genres = this.listBoxGenres.SelectedItems.Cast<Ganre>().ToList(); ;
             Stream stream = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
             WebClient<NewBookViewModel> apiClient = new WebClient<NewBookViewModel>();
-            apiClient.Scheme = "http";
+            newBookViewModel.Book.Validate();   
+            bool isValid = newBookViewModel.Book.IsValid;
+            bool ok= false;
+            if (isValid == true)
+            {
+                apiClient.Scheme = "http";
 
-            apiClient.Host = "localhost";
-            apiClient.Port = 5185;
-            apiClient.Path = "api/Admin/AddNewBook";
-            bool ok = await apiClient.PostAsync(newBookViewModel, stream);
+                apiClient.Host = "localhost";
+                apiClient.Port = 5185;
+                apiClient.Path = "api/Admin/AddNewBook";
+                ok = await apiClient.PostAsync(newBookViewModel, stream);
+            }
             if (ok == true)
             {
                 this.DialogResult = true;

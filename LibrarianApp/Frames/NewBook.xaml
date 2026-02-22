@@ -17,7 +17,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
     </Window.Resources>
     <Canvas>
         <Label x:Name="label"
@@ -166,9 +166,12 @@
         <TextBlock 
                    Canvas.Left="310" 
                    TextWrapping="Wrap"
-                   Text="" 
+                   Text="{Binding (Validation.Errors)[0].ErrorContent,ElementName=textBoxBookName}" 
                    Canvas.Top="31"
-                   Width="257"/>
+                   Width="257"
+                   Visibility="{Binding (Validation.HasError),
+                                Converter={StaticResource booleanToVisibilityConverter},
+                                ElementName=textBoxBookName}"/>
         <TextBlock 
             Canvas.Left="334" 
             TextWrapping="Wrap"
