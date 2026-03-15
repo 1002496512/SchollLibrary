@@ -200,7 +200,7 @@ namespace WebApiClient
                 StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 multipartContent.Add(stringContent, "data");
                 StreamContent fileContent = new StreamContent(file);
-                multipartContent.Add(fileContent, "file", "fileName");
+                multipartContent.Add(fileContent, "file", "file");
                 requestMessage.Content = multipartContent;
                 using (HttpResponseMessage responseMessage = await this.httpClient.SendAsync(requestMessage))
                 {
