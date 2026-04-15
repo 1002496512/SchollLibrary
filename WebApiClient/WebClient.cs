@@ -173,7 +173,6 @@ namespace WebApiClient
                 }
             }
         }
-
         public async Task<bool> PostAsync(T data)
         {
             using (HttpRequestMessage requestMessage = new HttpRequestMessage())
