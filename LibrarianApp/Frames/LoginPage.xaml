@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibrarianApp.Frames"
              mc:Ignorable="d" 
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              d:DesignHeight="450" d:DesignWidth="600">
     <UserControl.Resources>
         <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
@@ -18,8 +19,9 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Canvas>
-        <TextBox x:Name="textBoxNickName"
+    <Grid>
+        <Canvas x:Name="loginForm">
+            <TextBox x:Name="textBoxNickName"
                  Canvas.Left="220"
                  TextWrapping="Wrap"
                  Text="" 
@@ -29,13 +31,13 @@
                  Padding="20,7,7,7" HorizontalAlignment="Left" VerticalAlignment="Center" 
                  
                  />
-        <Label x:Name="label"
+            <Label x:Name="label"
                Content="User Nick"
                Canvas.Left="32"
                Canvas.Top="159"
                FontSize="20"
                FontFamily="{StaticResource SpecialElite}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox x:Name="textBoxPassword"
+            <TextBox x:Name="textBoxPassword"
                  Canvas.Left="220"
                  TextWrapping="Wrap"
                  Text=""
@@ -43,7 +45,7 @@
                  Width="262"
                  FontSize="20"
                  Padding="20,7,7,7" />
-        <Label x:Name="label_Copy"
+            <Label x:Name="label_Copy"
                Content="User Password"
                Canvas.Left="32" 
                Canvas.Top="228" 
@@ -51,7 +53,7 @@
                VerticalAlignment="Center"
                FontSize="20"
                FontFamily="{StaticResource SpecialElite}"/>
-        <Button x:Name="buttonLoin"
+            <Button x:Name="buttonLoin"
                 Canvas.Left="202" 
                 Canvas.Top="300" 
                 Width="254" 
@@ -59,18 +61,18 @@
                 FontSize="20"
                 FontFamily="{StaticResource SpecialElite}"
                 Foreground="White"
-                Background="Navy">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="32" Source="/Images/logout2.png"></Image>
-                    <Label Foreground="White"
+                Background="Navy" Click="buttonLoin_Click">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="32" Source="/Images/logout2.png"></Image>
+                        <Label Foreground="White"
                            Padding="15,7,0,0"
                            Content="Login"
                            FontSize="20"></Label>
-                </StackPanel>
-            </Button.Content>
-        </Button>
-        <Label x:Name="label1"
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Label x:Name="label1"
                Content="Login form" 
                Canvas.Left="165" 
                Canvas.Top="60"
@@ -79,38 +81,42 @@
                Width="273"
                FontSize="40"
                FontFamily="{StaticResource  SpecialElite}"/>
-        <Grid Background="Navy" 
+            <Grid Background="Navy" 
               HorizontalAlignment="Left"
               Canvas.Left="181"
               VerticalAlignment="Center" 
               Canvas.Top="153"
               Height="43"
               Width="43">
-            <Image Source="/Images/usernick.png" Stretch="Uniform"/>
+                <Image Source="/Images/usernick.png" Stretch="Uniform"/>
 
-            <Rectangle
+                <Rectangle
    
     
     
    
      />
-        </Grid>
-        <Grid Background="Navy" 
+            </Grid>
+            <Grid Background="Navy" 
          HorizontalAlignment="Center"
          Canvas.Left="181"
          VerticalAlignment="Top" 
          Canvas.Top="219"
          Height="43"
          Width="43">
-            <!-- The Image control goes first (background layer) -->
-            <Image Source="/Images/password.png" Stretch="Uniform"/>
+                <!-- The Image control goes first (background layer) -->
+                <Image Source="/Images/password.png" Stretch="Uniform"/>
 
-            <Rectangle
+                <Rectangle
    
     
     
    
 />
-        </Grid>
-    </Canvas>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="canvasLoginSuccess">
+            <Image gif:ImageBehavior.AnimatedSource="/Images/success.gif" Height="260" Width="301"/>
+        </Canvas>
+    </Grid>
 </UserControl>

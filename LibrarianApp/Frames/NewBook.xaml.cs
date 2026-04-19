@@ -38,12 +38,15 @@ namespace LibrarianApp.Frames
             apiClient.Port = 5185;
             apiClient.Path = "api/Admin/GetnewBookViewModel";
             newBookViewModel = await apiClient.GetAsync();
-
+            newBookViewModel.Book = new Book(); 
+            newBookViewModel.Book.BookName ="aaaa";
+            newBookViewModel.Book.BookDescription = "bbbb";
             if (newBookViewModel != null)
             {
+                this.DataContext = newBookViewModel;
                 listBoxGenres.ItemsSource = newBookViewModel.Genres;
                 listBoxAuthors.ItemsSource = newBookViewModel.Authors;
-                this.DataContext = newBookViewModel;
+               
             }
         }
         private void buttonSelectImage_Click(object sender, RoutedEventArgs e)
@@ -68,7 +71,7 @@ namespace LibrarianApp.Frames
             newBookViewModel.Book.BookImage = System.IO.Path.GetExtension(this.imgPath);
             newBookViewModel.Authors = this.listBoxAuthors.SelectedItems.Cast<Author>().ToList();
             newBookViewModel.Genres = this.listBoxGenres.SelectedItems.Cast<Ganre>().ToList(); ;
-            Stream stream = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
+           Stream stream = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
             WebClient<NewBookViewModel> apiClient = new WebClient<NewBookViewModel>();
             newBookViewModel.Book.Validate();   
             bool isValid = newBookViewModel.Book.IsValid;

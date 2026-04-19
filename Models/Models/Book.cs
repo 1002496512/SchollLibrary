@@ -29,13 +29,15 @@ namespace LibraryModels
                 this.bookId = value;
             }
         }
-        //[Required(ErrorMessage = "Book Name cannot be empty")]
-        //[StringLength(150, MinimumLength = 2, ErrorMessage = " A book name cannot be less than two characters or more than 150 characters.")]
-        //[FirstLetterCapital(ErrorMessage = "The first letter of the name must be a capital letter and the rest must be lowercase.")]    
+        [Required(ErrorMessage = "Book Name cannot be empty")]
+        [StringLength(150, MinimumLength = 2, ErrorMessage = " A book name cannot be less than two characters or more than 150 characters.")]
+        [FirstLetterCapital(ErrorMessage = "The first letter of the name must be a capital letter and the rest must be lowercase.")]    
         public string BookName
         {
                 get { return this.bookName; }
-                set { this.bookName = value; }  
+                set { this.bookName = value;
+                      ValidateProperty(value);
+            }  
         }
 
         //[Required(ErrorMessage = "Book Description cannot be empty")]
@@ -43,7 +45,9 @@ namespace LibraryModels
         public string BookDescription
         {
             get { return this.bookDescription; }
-            set { this.bookDescription = value; }   
+            set { this.bookDescription = value;
+                ValidateProperty(value);
+            }   
         }
         //[Required(ErrorMessage = "Book Image cannot be empty")]
         //[OnlyImage(ErrorMessage = "The image must be in image format (jpg, png, gif).")]

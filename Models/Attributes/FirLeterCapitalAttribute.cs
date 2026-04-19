@@ -14,7 +14,7 @@ namespace LibraryModels
             if(value==null) return false;
             string str = value.ToString();
             char firstLetter = str[0];
-            if(firstLetter<=65 || firstLetter >= 90)
+            if(firstLetter<65 || firstLetter > 90)
                 return false;
             for(int i = 1; i < str.Length; i++)
             {

@@ -115,7 +115,7 @@
          Foreground="#86d29c"
          FontSize="26"
             FontFamily="{StaticResource SpecialElite}"
-         Click="StartPage_Click">
+        Click="hlLoginOut_Click">
     Log in
 </Hyperlink>
                         </TextBlock>

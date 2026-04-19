@@ -20,9 +20,17 @@ namespace LibrarianApp.Frames
     /// </summary>
     public partial class LoginPage : UserControl
     {
+        public bool IsLogin { get; set; } = false;  
         public LoginPage()
         {
             InitializeComponent();
+        }
+
+        private void buttonLoin_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsLogin = true;
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow.StateHyperLinks(this.IsLogin);
         }
     }
 }

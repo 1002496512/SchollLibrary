@@ -19,11 +19,21 @@ namespace LibrarianApp
     {
         StartPage startPage;
         LoginPage loginPage;
-        BooksPage booksPage;    
+        BooksPage booksPage;   
+        bool islogin = false;  
         public MainWindow()
         {
             InitializeComponent();
             ViewStartPage();
+            StateHyperLinks(this.islogin);
+        }
+
+        public void StateHyperLinks(bool islogin)
+        {
+            this.islogin = islogin;
+            this.BookPage.IsEnabled = this.islogin;
+            hlAuthors.IsEnabled = this.islogin;
+
         }
 
         private void ViewStartPage()
@@ -39,8 +49,6 @@ namespace LibrarianApp
             if (this.loginPage == null)
                 this.loginPage = new LoginPage();
             this.frameContent.Content = this.loginPage;
-
-
         }
 
          private void ViewBooksPage()
@@ -76,6 +84,12 @@ namespace LibrarianApp
         private void BookPage_Click(object sender, RoutedEventArgs e)
         {
             ViewBooksPage();
+        }
+
+        private void hlLoginOut_Click(object sender, RoutedEventArgs e)
+        {
+            ViewLoginPage();
+            this.islogin = this.loginPage.IsLogin;  
         }
     }
 }

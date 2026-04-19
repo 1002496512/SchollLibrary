@@ -14,9 +14,16 @@ namespace LibraryModels
     {
         private Dictionary<string, List<string>> errors = new Dictionary<string, List<string>>();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         private object threadLock = new object();
         private bool isValid;
 
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
         public bool HasErrors
         {
             get { return errors.Any(propErrors => propErrors.Value != null && propErrors.Value.Count > 0); }

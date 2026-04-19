@@ -18,6 +18,7 @@
             </Setter>
         </Style>
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+        
     </Window.Resources>
     <Canvas>
         <Label x:Name="label"
@@ -129,7 +130,9 @@
         <TextBox x:Name="textBoxBookName"
                  Canvas.Left="236" 
                  TextWrapping="Wrap" 
-                 Text="TextBox"
+                 Text="{Binding Book.BookName,
+                                UpdateSourceTrigger=PropertyChanged,
+                                ValidatesOnDataErrors=True}"
                  Canvas.Top="49"
                  Padding="7"
                  Width="332"
@@ -183,14 +186,12 @@
             TextWrapping="Wrap"
             Text="" 
             Canvas.Top="214"
-            Width="99" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            Width="99"/>
         <TextBlock 
             Canvas.Left="456" 
             TextWrapping="Wrap"
             Text="" 
             Canvas.Top="214"
             Width="107" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-
     </Canvas>
 </Window>
