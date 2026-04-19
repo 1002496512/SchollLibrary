@@ -82,5 +82,10 @@ namespace LibraryWS
             this.command.Parameters.Clear();
             return value;
         }
+
+        internal object ExecuteScalar(string sql)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

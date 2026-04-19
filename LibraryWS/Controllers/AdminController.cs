@@ -1,6 +1,8 @@
 ﻿using LibraryModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryWS.Controllers
 {
@@ -14,14 +16,17 @@ namespace LibraryWS.Controllers
             this.repositoryFactory = new RepositoryFactory();
         }
         [HttpPost]
-        public bool AddNewBook(NewBookViewModel newBookViewModel)
+        public bool AddNewBook()
         {
+            string jsonString = Request.Form["data"];
+            NewBookViewModel newBookViewModel = JsonSerializer.Deserialize<NewBookViewModel>(jsonString);
+            IFormFile file = Request.Form.Files[0];
             try
             {
                 this.repositoryFactory.ConnectDb();
                 this.repositoryFactory.BeginTransaction();
                 bool ok = this.repositoryFactory.BookRepository.Create(newBookViewModel.Book);
-                string bookId = this.repositoryFactory.GetLastInsertedId().ToString();
+                string bookId =this.repositoryFactory.GetLastInsertedId().ToString();
                 foreach (Author author in newBookViewModel.Authors)
                 {
                     ok = ok && this.repositoryFactory.BookRepository.AddBookAuthor(bookId, author.AuthorId);
@@ -30,6 +35,14 @@ namespace LibraryWS.Controllers
                 {
                     ok = ok && this.repositoryFactory.BookRepository.AdBookGanre(bookId, ganre.GanreId);
                 }
+                // Image saving logic here
+                using (var stream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(),
+                                                                "wwwroot", "Images","Books",
+                                                                bookId + newBookViewModel.Book.BookImage), FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
                 this.repositoryFactory.Commit();
                 return true;
             }

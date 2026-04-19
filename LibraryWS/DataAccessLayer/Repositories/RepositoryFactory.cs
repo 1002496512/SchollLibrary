@@ -117,9 +117,10 @@ namespace LibraryWS
             throw new NotImplementedException();
         }
 
-        internal object GetLastInsertedId()
+        public object GetLastInsertedId()
         {
-            throw new NotImplementedException();
+            string sql= "SELECT @@IDENTITY";
+            return this.oledbContext.GetValue(sql);
         }
 
         internal void RollBack()
